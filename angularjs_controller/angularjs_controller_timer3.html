@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot; Controller</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-bottom:1px solid #1b926c;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <div class="row">
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="../index.html">首页</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a href="javascript:void(0)">Link</a></li>
+                      <li><a href="javascript:void(0)">Link2</a></li>
+                  </ul>
+              </div>
+          </nav>
+      </div>
+      <div class="row demo">
+          <h3>Demo1-Controller-计时器</h3>
+          <div ng-controller="TimerController">
+              <p>输出：<b>{{clock}}</b></p>
+          </div>
+      </div>
+  </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var myApp = angular.module('myApp', []); //注意app创建时需要添加第二个参数
+
+    myApp.controller('TimerController',function($scope){
+       $scope.clock={
+           now:new Date()
+       };
+
+       var updateClock=function(){
+          $scope.clock.now=new Date();
+       };
+
+       setInterval(function(){
+           $scope.$apply(updateClock);
+       },1000);
+
+       //updateClock();
+    });
+</script>
