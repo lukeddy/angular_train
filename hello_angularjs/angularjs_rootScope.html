@@ -32,12 +32,19 @@
              </div>
          </nav>
      </div>
+     <div ng-app="myApp">
      <div class="row demo">
-         <h3>Demo1: scope根节点rootScope</h3>
-         <div ng-app="myApp">
-             <h5>输出：Hello {{name}}</h5>
+         <h3>Demo1: $scope根节点$rootScope</h3>
+         <div>
+             <h5>输出：Hello, <b>{{name}}</b></h5>
          </div>
-
+     </div>
+     <div class="row demo">
+         <h3>Demo1: Controller $scope</h3>
+         <div>
+             <h5>输出：Hello, <b>{{name}}</b></h5>
+         </div>
+     </div>
      </div>
  </div>
 </body>
@@ -47,5 +54,8 @@
     angular.module('myApp', [])
             .run(function($rootScope) {
                 $rootScope.name = "I am rootScope value";
-            });
+            }).controller('MyController',
+            function($scope) {
+                $scope.name = "I am controller scope value";
+            });;
 </script>
