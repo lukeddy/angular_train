@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot; Controller</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-bottom:1px solid #1b926c;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <div class="row">
+          <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <a class="navbar-brand" href="../index.html">首页</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a href="javascript:void(0)">Link</a></li>
+                      <li><a href="javascript:void(0)">Link2</a></li>
+                  </ul>
+              </div>
+          </nav>
+      </div>
+      <div class="row demo">
+          <h3>Demo1-Module-firstApp</h3>
+          <div ng-app="firstApp">
+              <div ng-controller="HelloController">
+                  <p>输出：<b>{{user.name}}</b> say, welcome to visit <a href="{{user.website}}" target="_blank">{{user.website}}</a></p>
+              </div>
+          </div>
+      </div>
+      <div class="row demo">
+          <h3>Demo1-Module-secondApp</h3>
+          <div ng-app="secondApp">
+              <div ng-controller="SiteController">
+                  <p>输出：<b>{{site.name}}</b> say, {{site.description}}</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var firstApp = angular.module('firstApp', []); //注意app创建时需要添加第二个参数
+    firstApp.controller('HelloController',function($scope){
+        $scope.user = {name: '时刻智(ShiKeZhi)',
+                       website:'http://www.shikezhi.com'
+        };
+    });
+
+    //TODO 解决第二个模块不起作用的bug
+    var secondApp = angular.module('secondApp', []); //注意app创建时需要添加第二个参数
+    secondApp.controller('SiteController',function($scope){
+        $scope.site = {name: '时刻智(ShiKeZhi)-http://www.shikezhi.com',
+            description:'时刻智为移动开发工程师，前端设计师，程序员、开发工程师，数据库工程师、运维人员、架构师、产品经理提供海量知识，致力于建设成为IT行业的相关人员知识学习、资料查询的大平台，为大家的日常工作提供便利。'
+        };
+    });
+
+</script>
