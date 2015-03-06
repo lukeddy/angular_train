@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-bottom:1px solid #1b926c;
+        }
+        /*.navbar{*/
+            /*border:1px solid #1b926c;*/
+            /*background-color: #1fa67a;*/
+        /*}*/
+
+    </style>
+</head>
+<body>
+
+ <div class="container">
+     <div class="row">
+         <nav class="navbar navbar-default navbar-static-top">
+             <div class="container-fluid">
+                 <div class="navbar-header">
+                     <a class="navbar-brand" href="../index.html">首页</a>
+                 </div>
+                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+<div ng-app="myApp">
+    <div class="row demo" ng-controller="ExpressionController">
+        <h3>Demo1: $watch使用</h3>
+        <input ng-model="expr" type="text" placeholder="Enter an expression"/>
+        <h5>解析结果：<b>{{parseResult}}</b></h5>
+    </div>
+</div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    /**
+     * AngularJS通过$parse这个内部服务来进行表达式的运算，这个服务能够访问当前所处的作
+     用域。这个过程允许我们访问定义在$scope上的原始JavaScript数据和函数。
+     将$parse服务注入到控制器中，然后调用它就可以实现手动解析表达式。
+     * @type {*}
+     */
+    var myApp=angular.module("myApp",[]);
+    myApp.controller("ExpressionController",function($scope,$parse){
+        $scope.$watch('expr',function(newVal,oldVal,scope){
+           if(newVal!=oldVal){
+               //用新表达式设置parseFun
+               var parseFun=$parse(newVal);
+               //获取解析过后的值
+               $scope.parseResult=parseFun(scope);
+           }
+        });
+    });
+</script>
