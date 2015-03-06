@@ -38,6 +38,14 @@
         <input ng-model="expr" type="text" placeholder="Enter an expression"/>
         <h5>解析结果：<b>{{parseResult}}</b></h5>
     </div>
+    <div class="row demo" ng-controller="EmailController">
+        <h3>Demo1:$interpolate使用,邮件</h3>
+        <input ng-model="to" type="text" placeholder="Email"/>
+        <br/>
+        <textarea ng-model="emailBody" name="emailBody" id="" cols="30" rows="10"></textarea>
+        <h5>解析结果：</h5>
+        <pre>{{ previewText }}</pre>
+    </div>
 </div>
  </div>
 </body>
@@ -58,6 +66,21 @@
                var parseFun=$parse(newVal);
                //获取解析过后的值
                $scope.parseResult=parseFun(scope);
+           }
+        });
+    });
+
+    /**
+     * 在AngularJS中，我们的确有手动运行模板编译的能力。例如，插值允许基于作用域上的某
+     个条件实时更新文本字符串。
+     要在字符串模板中做插值操作，需要在你的对象中注入$interpolate服务。
+     */
+    myApp.controller("EmailController",function($scope,$interpolate){
+        // 设置监听
+        $scope.$watch("emailBody",function(body){
+           if(body){
+               var template=$interpolate(body);
+               $scope.previewText=template({to:$scope.to});
            }
         });
     });
