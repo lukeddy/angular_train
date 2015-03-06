@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #1b926c;
+        }
+
+        /*.navbar{*/
+        /*border:1px solid #1b926c;*/
+        /*background-color: #1fa67a;*/
+        /*}*/
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="../index.html">首页</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div ng-app="myApp">
+        <div ng-controller="ElementController">
+            <div class="row demo">
+                <h3>Demo1: 获取元素内容</h3>
+                <button class="btn btn-success" ng-click="showTag1Value()">显示标记内容</button>
+                <h5 class="tag1">我是h4标签内容</h5>
+            </div>
+            <div class="row demo">
+                <h3>Demo2: 设置元素值</h3>
+                <button class="btn btn-success" ng-click="setTag2Value()">设置值</button>
+                <h5 class="tag2"></h5>
+            </div>
+            <div class="row demo">
+                <h3>Demo3: 修改元素背景</h3>
+                <button class="btn btn-success" ng-click="changeBackground()">修改背景颜色</button>
+                <h5 id="tag3">我是tag3内容</h5>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var myApp = angular.module("myApp", []);
+    myApp.controller("ElementController", function ($scope) {
+        $scope.showTag1Value = function () {
+            alert($(".tag1").html());
+        };
+        $scope.setTag2Value=function(){
+            $('.tag2').html("我是新的添加值");
+        }
+        $scope.changeBackground=function(){
+            $('#tag3').attr("style","background:#f00;height:100px;text-align:center;color:#fff;font-size:30px;");
+        }
+
+    });
+</script>
