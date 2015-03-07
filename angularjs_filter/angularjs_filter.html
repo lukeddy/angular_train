@@ -1,24 +1,67 @@
 <!DOCTYPE html>
-<html ng-app>
+<html>
 <head>
     <meta charset="utf-8">
     <title>AngularJS&middot;Hello AngularJS</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="http://cdn.bootcss.com/prettify/r298/prettify.min.css"/>-->
+    <link rel="stylesheet" href="../static/js/prettify/prettify.css"/>
     <style>
         .demo{
             margin-bottom:10px;
             border-bottom:1px solid #1b926c;
         }
-        /*.navbar{*/
-            /*border:1px solid #1b926c;*/
-            /*background-color: #1fa67a;*/
-        /*}*/
 
+        /* customize prettify css*/
+        /*.prettyprint,*/
+        /*pre.prettyprint {*/
+            /*background-color: #272822;*/
+            /*border: 1px solid #272822;*/
+            /*overflow: hidden;*/
+            /*padding: 8px;*/
+        /*}*/
+        /*.prettyprint.linenums,*/
+        /*pre.prettyprint.linenums {*/
+            /*-webkit-box-shadow: inset 40px 0 0 #39382E, inset 41px 0 0 #464741;*/
+            /*-moz-box-shadow: inset 40px 0 0 #39382E, inset 41px 0 0 #464741;*/
+            /*box-shadow: inset 40px 0 0 #39382E, inset 41px 0 0 #464741;*/
+        /*}*/
+        /*.prettyprint.linenums ol,*/
+        /*pre.prettyprint.linenums ol {*/
+            /*margin: 0 0 0 33px;*/
+        /*}*/
+        /*.prettyprint.linenums ol li,*/
+        /*pre.prettyprint.linenums ol li {*/
+            /*padding-left: 12px;*/
+            /*color: #bebec5;*/
+            /*line-height: 20px;*/
+            /*margin-left: 0;*/
+            /*list-style: decimal;*/
+        /*}*/
+        /*.prettyprint .com { color: #93a1a1; }*/
+        /*.prettyprint .lit { color: #AE81FF; }*/
+        /*.prettyprint .pun,*/
+        /*.prettyprint .opn,*/
+        /*.prettyprint .clo { color: #F8F8F2; }*/
+        /*.prettyprint .fun { color: #dc322f; }*/
+        /*.prettyprint .str,*/
+        /*.prettyprint .atv { color: #E6DB74; }*/
+        /*.prettyprint .kwd,*/
+        /*.prettyprint .tag { color: #F92659; }*/
+        /*.prettyprint .typ,*/
+        /*.prettyprint .atn,*/
+        /*.prettyprint .dec,*/
+        /*.prettyprint .var { color: #A6E22E; }*/
+        /*.prettyprint .pln { color: #66D9EF; }*/
+        /*li.L1, li.L3, li.L5, li.L7, li.L9 {*/
+            /*background: #000;*/
+        /*}*/
     </style>
 </head>
 <body>
 
  <div class="container">
+
      <div class="row">
          <nav class="navbar navbar-default navbar-static-top">
              <div class="container-fluid">
@@ -32,24 +75,245 @@
              </div>
          </nav>
      </div>
-     <div class="row demo">
-         <h3>Demo1: 字符串显示</h3>
-         <h5>输出：Hello {{'AngularJS'}}</h5>
-     </div>
-     <div class="row demo">
-         <h3>Demo2: ng-model使用</h3>
-         <p>Your Name:<input type="text" ng-model="yourname" placeholder="Your Name"/></p>
-         <h5>输出：Hello {{yourname||'AngularJS'}}</h5>
-     </div>
-     <div class="row demo">
-         <h3>Demo3: 字符串合并</h3>
-         <h5>输出：String Expression:{{'Awsome '+'FEI'}}</h5>
-     </div>
-     <div class="row demo">
-         <h3>Demo3: 表达式计算</h3>
-         <h5>输出：Number Expression:{{1+5}}</h5>
+     <h1 class="page-title">AngularJS过滤器使用</h1>
+     <div ng-app="myApp">
+         <div class="row demo">
+             <h3>Demo1: 字符串转大写</h3>
+             <h5>输出：Hello {{'AngularJS'|uppercase}}</h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: 数字取两位小数</h3>
+             <h5>123.45678 输出：{{123.45678|number:2}}</h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: 货币转换</h3>
+             <h5>666 输出：{{666|currency}}</h5>
+         </div>
+
+         <div class="row demo" ng-controller="DateController">
+             <h3>Demo1: 日期转换</h3>
+<pre>
+    myApp.controller("DateController",function($scope){
+        $scope.today=new Date();
+    });
+</pre>
+             <h5>输出：</h5>
+             <div>
+                 {{ today | date:'medium' }} <br/>
+                 {{ today | date:'short' }} <br/>
+                 {{ today | date:'fullDate' }} <br/>
+                 {{ today | date:'longDate' }}<br/>
+                 {{ today | date:'mediumDate' }}<br/>
+                 {{ today | date:'shortDate' }} <br/>
+                 {{ today | date:'mediumTime' }}<br/>
+                 {{ today | date:'shortTime' }} <br/>
+                 <h5> 年份格式化</h5>
+                 四位年份：{{ today | date:'yyyy' }} <br/>
+                 两位年份：{{ today | date:'yy' }}<br/>
+                 一位年份：{{ today | date:'y' }} <br/>
+                 年月日时分秒：{{ today | date:'yyyy-MM-dd hh:mm:ss' }} <br/>
+                <h5>  月份格式化</h5>
+                 英文月份：{{ today | date:'MMMM' }}<br/>
+                 英文月份简写：{{ today | date:'MMM' }} <!-- Aug --><br/>
+                 数字月份：{{ today |date:'MM' }} <!-- 08 --><br/>
+                 一年中的第几个月份：{{ today |date:'M' }} <!-- 8 --><br/>
+                 <h5> 日期格式化</h5>
+                 数字日期：{{ today|date:'dd' }} <!-- 09 --><br/>
+                 一个月中的第几天：{{ today | date:'d' }} <!-- 9 --><br/>
+                 英文星期：{{ today | date:'EEEE' }} <!-- Thursday --><br/>
+                 英文星期简写：{{ today | date:'EEE' }} <!-- Thu --><br/>
+                 <h5> 小时格式化</h5>
+                 24小时制数字小时：{{today|date:'HH'}} <br/>
+                 一天中的第几个小时：{{today|date:'H'}} <br/>
+                 12小时制数字小时：{{today|date:'hh'}} <br/>
+                 上午或下午的第几个小时：{{today|date:'h'}} <br/>
+                <h5>  分钟格式化</h5>
+                 数字分钟数：{{ today | date:'mm' }} <br/>
+                 一个小时中的第几分钟：{{ today | date:'m' }} <br/>
+                 <h5> 秒数格式化</h5>
+                 数字秒数：{{ today | date:'ss' }} <br/>
+                 一分钟内的第几秒：{{ today | date:'s' }} <br/>
+                 毫秒数：{{ today | date:'.sss' }} <br/>
+                 <h5> 字符格式化</h5>
+                 上下午标识：{{ today | date:'a' }}<br/>
+                 四位时区标识：{{ today | date:'Z' }} <br/>
+                 <h5>下面是一些自定义日期格式的示例：</h5>
+                 {{ today | date:'MMMd, y' }} <br/>
+                 {{ today | date:'EEEE, d, M' }}<br/>
+                 {{ today | date:'hh:mm:ss.sss' }} <br/>
+             </div>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: 数组过滤</h3>
+             <h5> ['Ari','Lerner','Likes','To','Eat','Pizza']输出包含e字符的元素：<b>{{ ['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e' }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: 对象过滤过滤</h3>
+             <h5>
+                 [{
+                 'name': 'Ari',
+                 'City': 'San Francisco',
+                 'favorite food': 'Pizza'
+                 },{
+                 'name': 'Nate',
+                 'City': 'San Francisco',
+                 'favorite food': 'indian food'
+                 }]
+                 <br/>
+                 输出含有'favorite food': 'Pizza'的对象：<br/> <b>{{ [{
+                 'name': 'Ari',
+                 'City': 'San Francisco',
+                 'favorite food': 'Pizza'
+                 },{
+                 'name': 'Nate',
+                 'City': 'San Francisco',
+                 'favorite food': 'indian food'
+                 }] | filter:{'favorite food': 'Pizza'} }}</b></h5>
+         </div>
+         <div class="row demo" ng-controller="TestController">
+             <h3>Demo1: 自定义函数过滤</h3>
+<pre>
+    myApp.controller("TestController",function($scope){
+        $scope.isCapitalized = function(str) {
+            return str[0] == str[0].toUpperCase();
+        };
+    });
+</pre>
+             <h5>['Ari','likes','to','travel','Yes','AWesome']输出首字母大写的元素：<b>{{ ['Ari','likes','to','travel','Yes','AWesome'] | filter:isCapitalized }}</b></h5>
+         </div>
+         <div class="row demo" ng-controller="LowerCaseController">
+             <h3>Demo1: $filter字符串转小写</h3>
+ <pre>
+    var myApp=angular.module("myApp",[]);
+    myApp.controller("LowerCaseController",function($scope,$filter){
+      $scope.filteredValue=$filter('lowercase')('HELLO ANGULARJS');
+    });
+ </pre>
+             <h5>输出：{{filteredValue}}</h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: json过滤器可以将一个JSON或JavaScript对象转换成字符串</h3>
+             <h5> {'name': 'Ari', 'City': 'SanFrancisco'}输出：<b>{{ {'name': 'Ari', 'City': 'SanFrancisco'} | json }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: limitTo过滤器会根据传入的参数生成一个新的数组或字符串，新的数组或字符串的长度取决于传入的参数，通过传入参数的正负值来控制从前面还是从后面开始截取。</h3>
+             <h5>San Francisco is very cloudy 输出截取字符串的前三个字符：<b>{{ 'San Francisco is very cloudy' | limitTo:3 }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: limitTo测试</h3>
+             <h5>San Francisco is very cloudy 输出截取字符串的最后六个字符：<b>{{ 'San Francisco is very cloudy' | limitTo:-6 }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: limitTo使用返回数组前3个元素</h3>
+             <h5>['a','b','c','d','e','f'] 输出：<b>{{ ['a','b','c','d','e','f'] | limitTo:3 }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: orderBy过滤器可以用表达式对指定的数组进行排序。</h3>
+             <h5>[{
+                 'name': 'Ari',
+                 'status': 'awake'
+                 },{
+                 'name': 'Q',
+                 'status': 'sleeping'
+                 },{
+                 'name': 'Nate',
+                 'status': 'awake'
+                 }]
+                 <br/>
+                  根据name排序输出：
+                 <br/>
+                 <b>
+                 {{ [{
+                 'name': 'Ari',
+                 'status': 'awake'
+                 },{
+                 'name': 'Q',
+                 'status': 'sleeping'
+                 },{
+                 'name': 'Nate',
+                 'status': 'awake'
+                 }] | orderBy:'name' }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: orderBy过滤器第二个参数设置为true反转排序。</h3>
+             <h5>[{
+                 'name': 'Ari',
+                 'status': 'awake'
+                 },{
+                 'name': 'Q',
+                 'status': 'sleeping'
+                 },{
+                 'name': 'Nate',
+                 'status': 'awake'
+                 }]
+                 <br/>
+                 根据name反转排序输出：
+                 <br/>
+                 <b>
+                     {{ [{
+                     'name': 'Ari',
+                     'status': 'awake'
+                     },{
+                     'name': 'Q',
+                     'status': 'sleeping'
+                     },{
+                     'name': 'Nate',
+                     'status': 'awake'
+                     }] | orderBy:'name':true }}</b></h5>
+         </div>
+         <div class="row demo">
+             <h3>Demo1: 自定义过滤器将字符串首字母大写</h3>
+<pre>
+    myApp.filter("customizeCapitalize",function(){
+       return function(input){
+           //首字母大写实现
+           if(input){
+               return input[0].toUpperCase()+input.slice(1);
+           }
+       };
+   });
+</pre>
+             <h5>hEllo WOrlD首字母大写输出：<b>{{ 'hEllo WOrlD'| lowercase | customizeCapitalize }}</b></h5>
+         </div>
      </div>
  </div>
 </body>
 </html>
+<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
 <script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script src="../static/js/prettify/prettify.min.js" type="text/javascript"></script>
+<script>
+    /**
+     * pretiffy美化代码
+     */
+    $(function() {
+        $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+        window.prettyPrint && prettyPrint();
+    });
+</script>
+<script>
+    var myApp=angular.module("myApp",[]);
+    myApp.controller("LowerCaseController",function($scope,$filter){
+      $scope.filteredValue=$filter('lowercase')('HELLO ANGULARJS');
+    });
+    myApp.controller("DateController",function($scope){
+        $scope.today=new Date();
+    });
+
+    myApp.controller("TestController",function($scope){
+        $scope.isCapitalized = function(str) {
+            return str[0] == str[0].toUpperCase();
+        };
+    });
+
+   myApp.filter("customizeCapitalize",function(){
+       return function(input){
+           //首字母大写实现
+           if(input){
+               return input[0].toUpperCase()+input.slice(1);
+           }
+       };
+   });
+
+
+</script>
