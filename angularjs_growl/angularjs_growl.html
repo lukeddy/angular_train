@@ -94,7 +94,7 @@
 <script src="../static/js/angular-growl/angular-growl.js" type="text/javascript"></script>
 <script>
     var myApp=angular.module('myApp', ['angular-growl','ngSanitize']);
-    myApp.controller("GrowlController", ['$scope', 'growl', function($scope, growl,$sce) {
+    myApp.controller("GrowlController", ['$scope', 'growl', function($scope, growl) {
         $scope.message="I am default message";
         $scope.timeout=2000;
 
