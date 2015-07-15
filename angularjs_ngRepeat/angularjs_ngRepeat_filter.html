@@ -71,7 +71,7 @@
               <p>输出：<b>{{main.searchInput}}</b></p>
               <h3>列表</h3>
               <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="sport in main.sports">
+                  <li class="list-group-item" ng-repeat="sport in main.sports | filter:main.searchInput">
                       <span class="glyphicon glyphicon-star" ng-if="sport.favorite"></span>
                       {{sport.title}}
                       <span class="badge">{{sport.year}}</span>
@@ -100,7 +100,7 @@
     var myApp = angular.module('myApp', []); //注意app创建时需要添加第二个参数
     myApp.controller('MainController',function(){
         var vm=this;
-        vm.title='angularjs ngrepeat ngif指令练习';
+        vm.title='angularjs filter指令在ngrepeat中的使用练习';
         vm.searchInput='';
         vm.sports=[
             {
