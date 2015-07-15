@@ -33,25 +33,29 @@
   var myApp = angular.module('myApp', []); //注意app创建时需要添加第二个参数
     myApp.controller('MainController',function(){
         var vm=this;
-        vm.title='angularjs ngrepeat指令练习';
+        vm.title='angularjs filter指令在ngrepeat中的使用练习';
         vm.searchInput='';
-        vm.shows=[
+        vm.sports=[
             {
+                id:1,
                 title:'足球',
                 year:2015,
                 favorite:true
             },
             {
+                id:2,
                 title:'篮球',
                 year:2014,
                 favorite:false
             },
             {
+                id:3,
                 title:'乒乓球',
                 year:2013,
                 favorite:false
             },
             {
+                id:4,
                 title:'网球',
                 year:2010,
                 favorite:true
@@ -71,13 +75,11 @@
               <p>输出：<b>{{main.searchInput}}</b></p>
               <h3>列表</h3>
               <ul class="list-group">
-                  <li class="list-group-item" ng-repeat="sport in main.sports | filter:main.searchInput">
-                      <span class="glyphicon glyphicon-star" ng-if="sport.favorite"></span>
+                  <li class="list-group-item" ng-repeat="sport in main.sports | filter:main.searchInput | orderBy:main.sport.key:main.sport.reverse">
                       {{sport.title}}
-                      <span class="badge">{{sport.year}}</span>
-                      <span class="badge">{{sport.favorite}}</span>
                   </li>
               </ul>
+              <select class="form-control pull-right" ng-model="main.sport" ng-options="sport as sport.title for sport in main.sports"></select>
               <p>参考：<b> <a href="http://www.revillweb.com/tutorials/angularjs-in-30-minutes-angularjs-tutorial/" target="_blank">http://www.revillweb.com/tutorials/angularjs-in-30-minutes-angularjs-tutorial/</a> </b></p>
           </div>
       </div>
@@ -104,26 +106,31 @@
         vm.searchInput='';
         vm.sports=[
             {
+                id:1,
                 title:'足球',
-                year:2015,
-                favorite:true
+                key: 'year',
+                reverse: false
             },
             {
+                id:2,
                 title:'篮球',
-                year:2014,
-                favorite:false
+                key: 'year',
+                reverse: true
             },
             {
+                id:3,
                 title:'乒乓球',
-                year:2013,
-                favorite:false
+                key: 'title',
+                reverse: false
             },
             {
+                id:4,
                 title:'网球',
-                year:2010,
-                favorite:true
+                key: 'title',
+                reverse: true
             }
-
         ];
+
+        vm.sport=vm.sports[0];
     });
 </script>
