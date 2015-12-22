@@ -1,0 +1,14 @@
+{
+  "name": "learn-angularjs",
+  "version": "1.0.0",
+  "description": "This is a project just for angular protice，如何配置参数请参考 https://www.browsersync.io/docs/options/",
+  "main": "index.js",
+  "scripts": {
+    "learn-angular-dev": "browser-sync start --server --files \"*.*\""
+  },
+  "author": "tangzq",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.8.2"
+  }
+}

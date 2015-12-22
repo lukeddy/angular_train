@@ -1,0 +1,24 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'dev' ]
+2 info using npm@1.4.23
+3 info using node@v0.10.31
+4 verbose node symlink D:\Program Files\nodejs\\node.exe
+5 error Failed to parse json
+5 error Unexpected token /
+6 error File: E:\TODOs\angularjs\angular_train\package.json
+7 error Failed to parse package.json data.
+7 error package.json must be actual JSON, not just JavaScript.
+7 error
+7 error This is not a bug in npm.
+7 error Tell the package author to fix their package.json file. JSON.parse
+8 error System Windows_NT 6.1.7601
+9 error command "D:\\Program Files\\nodejs\\\\node.exe" "D:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "dev"
+10 error cwd E:\TODOs\angularjs\angular_train
+11 error node -v v0.10.31
+12 error npm -v 1.4.23
+13 error file E:\TODOs\angularjs\angular_train\package.json
+14 error code EJSONPARSE
+15 verbose exit [ 1, true ]
