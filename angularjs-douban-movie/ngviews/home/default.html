@@ -1,0 +1,10 @@
+<div class="container">
+    <ul class="list-wrap row">
+        <li class="col-md-2 col-sm-3 col-xs-12" ng-repeat="m in movies.subjects">
+            <div class="item">
+                <img src="{{m.images.large}}" ng-click="main.openDetail(m.id);">
+                <h3 class="item-title"><a href="" ng-click="main.openDetail(m.id);">{{m.title}}</a><span>{{m.rating.average}}</span></h3>
+            </div>
+        </li>
+    </ul>
+</div>

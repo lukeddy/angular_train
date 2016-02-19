@@ -1,0 +1,58 @@
+//
+
+@mixin vertical-align($parent-height, $element-height) {
+  margin-top: (($parent-height - $element-height) / 2);
+  //margin-top: (($parent-height - $element-height) / 2);
+}
+
+@mixin rounded($radius: 2px) {
+  border-radius: $radius;
+}
+
+@mixin opacity($opacity: 0.5) {
+  opacity: $opacity;
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin transform($arguments...) {
+  -webkit-transform: $arguments;
+  -moz-transform: $arguments;
+  -o-transform: $arguments;
+  -ms-transform: $arguments;
+  transform: $arguments;
+}
+
+@mixin rotate($deg:5deg) {
+  @include transform(rotate($deg));
+}
+
+@mixin translate($x:0, $y:0) {
+  @include transform(translate($x, $y));
+}
+
+@mixin translate3d($x:0, $y:0, $z:0) {
+  @include transform(translate3d($x, $y, $z));
+}
+
+@mixin scale($x:0, $y:0) {
+  @include transform(scale($x, $y));
+}
+
+@mixin scale3d($x:0, $y:0, $z:0) {
+  @include transform(scale3d($x, $y, $z));
+}
+
+@mixin transition($value...) {
+  -webkit-transition: $value;
+  transition: $value;
+}

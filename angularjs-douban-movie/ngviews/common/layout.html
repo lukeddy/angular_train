@@ -1,0 +1,17 @@
+<header class="row">
+    <div class="container">
+        <div class="site-logo">Movie me</div>
+        <ul class="nav">
+            <li><a class="active" href="" ng-click="getMovies('in_theaters')">正在热映</a></li>
+            <li><a href="" ng-click="getMovies('coming_soon')">即将上映</a></li>
+            <li><a href="" ng-click="getMovies('top250')">Top250</a></li>
+            <!--<li><a href="" ng-click="getMovies('weekly')">口碑榜</a></li>-->
+            <li><a href="" ng-click="getMovies('us_box')">北美票房榜</a></li>
+            <!--<li><a href="" ng-click="getMovies('new_movies')">新片榜</a></li>-->
+        </ul>
+    </div>
+</header>
+<div ui-view></div>
+<footer>
+    <p>&copy; Copyright 2015 - author:chenz</p>
+</footer>

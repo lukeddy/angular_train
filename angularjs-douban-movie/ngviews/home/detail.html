@@ -1,0 +1,36 @@
+<div class="row off-canvas__nav detail" ng-controller="DetailController as detail">
+    <div class="col-md-12 thumb-wrap" style="background-image: url('{{movie.images.small}}');background-position: 50% 50%;background-size: cover;background-blend-mode: soft-light">
+        <img class="thumb" src="{{movie.images.large}}">
+    </div>
+    <h2 class="detail-title meta-row" ng-click="detail.toggle()">{{movie.title}}</h2>
+    <p class="detail-rating meta-row"><i></i><span class="">8.2</span><span>{{movie.ratings_count}}人评分</span></p>
+    <p class="detail-directors meta-row">
+        <span class="meta-row-head">导演：</span><span ng-repeat="director in movie.directors">{{director.name}} / </span>
+    </p>
+    <p class="meta-row">
+        <span class="meta-row-head">主演：</span> <span ng-repeat="cast in movie.casts">{{cast.name}} / </span>
+    </p>
+    <p class="meta-row">
+        <span class="meta-row-head">类型：</span> <span ng-repeat="genre in movie.genres">{{genre}} / </span>
+    </p>
+    <p class="meta-row">
+        <span class="meta-row-head">语言：</span> 英语
+    </p>
+    <p class="meta-row">
+        <span class="meta-row-head">剧情：</span>
+    </p>
+    <p class="meta-row detail-summary">{{movie.summary}}</p>
+    <hr>
+    <div class="casts-images col-md-12">
+        <p class="meta-row">
+            <span class="meta-row-head">影人：</span>
+        </p>
+        <ul>
+            <li class="cast col-md-2" ng-repeat="cast in movie.casts">
+                <img src="{{cast.avatars.medium}}">
+                <p>{{cast.name}}</p>
+            </li>
+        </ul>
+    </div>
+    <div style="height: 40px;"></div>
+</div>

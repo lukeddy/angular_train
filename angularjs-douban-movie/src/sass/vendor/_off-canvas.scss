@@ -1,0 +1,70 @@
+/*
+ * angular-off-canvas v0.1.0
+ * (c) 2013 Ciro Nunes http://cironunes.github.io/
+ * License: MIT
+ */
+
+// Variables
+// ----------
+$off-canvas-transition: all .3s cubic-bezier(.16,.63,.45,.98);
+$off-canvas-size:				50%;
+
+// Mixins
+// ----------
+// http://www.stefanwienert.net/blog/2012/05/18/easy-css-vendor-prefix-mixin-for-sass/
+//@mixin vendor-prefix($name, $argument){
+//  -webkit-$name: $argument;
+//  -ms-$name: $argument;
+//  -moz-$name: $argument;
+//  -o-$name: $argument;
+//  $name: $argument;
+//}
+
+
+/* prevent horizontal scroll */
+html, body{
+  overflow-x: hidden
+}
+
+.off-canvas__nav{
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  height: 100%;
+  width: $off-canvas-size;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #fff;
+  @include transform(translate3d(0,0,0) translateX(100%));
+  @include transition($off-canvas-transition);
+}
+
+
+.off-canvas__content{
+  @include transform(translate3d(0,0,0) translateX(0));
+  @include transition($off-canvas-transition);
+}
+
+
+.is-off-canvas-opened .off-canvas__nav{
+  @include transform( translate3d(0,0,0) translateX(0));
+  @include transition(translate3d(0,0,0) translateX(0))
+}
+
+.is-off-canvas-opened .off-canvas__content{
+ @include transform(translate3d(0, 0, 0) translate(-$off-canvas-size))
+}
+
+.is-off-canvas-opened .off-canvas-mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  opacity: .5;
+  z-index: 99;
+  overflow: hidden;
+  @include transition(all .3s ease);
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="indigo">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title page-title></title>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body ng-controller="MainController as main" ng-init="getMovies('in_theaters')">
+    <div class="off-canvas__content" ui-view></div>
+    <div class="off-canvas-mask" ng-click="main.toggle()"></div>
+    <a class="hamburger" ng-click="main.toggle()"><span></span></a>
+</body>
+<script src="assets/js/vendor.js"></script>
+<script src="assets/js/app.js"></script>
+</html>
