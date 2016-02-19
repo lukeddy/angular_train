@@ -49,7 +49,7 @@
           <h3>AngularJS TODO示例</h3>
           <div ng-controller="TodoController">
               <span>总共 <b>{{todos.length}}</b> 项TODO,剩下 <b>{{remaining()}} </b>个</span>
-              [ <a href="" ng-click="archive()">archive</a> ]
+              [ <a href="" ng-click="archive()">所有完成</a> ]
               <ul class="unstyled">
                   <li class="item-todo" ng-repeat="todo in todos">
                       <input type="checkbox" ng-model="todo.done">
