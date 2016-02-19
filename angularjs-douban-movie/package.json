@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "angular seed",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4"
+  },
   "devDependencies": {
     "gulp-concat": "^2.6.0",
     "gulp-minify-css": "^1.2.2",

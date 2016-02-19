@@ -31,3 +31,25 @@
 // server.listen(8888);
 //
 // console.log("server started on port 8888");
+var express = require('express'),
+ejs = require('ejs'),
+path = require('path');
+
+var app = express();
+
+app.engine('.html', ejs.__express);
+app.set('view engine', 'html');
+app.use(express.static('assets'));
+app.set('views', __dirname);
+
+//app.use(express.static(path.join(__dirname, 'assets')));
+
+
+app.get('/', function(req, res){
+  //res.send('hello world');
+  console.log(app.get('views'));
+  res.render('index',{});
+});
+
+app.listen(3000);
+console.log("server started on port 3000");
