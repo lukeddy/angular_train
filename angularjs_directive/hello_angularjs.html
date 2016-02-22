@@ -9,33 +9,29 @@
             margin-bottom:10px;
             border-top:1px solid #1b926c;
         }
+         footer{
+             color:#fff;
+             background-color: #222;
+             border-color: #080808;
+             padding-top:60px;
+             margin-top:100px;
+         }
     </style>
 </head>
 <body>
-
- <div class="container">
-     <div class="row">
-         <nav class="navbar navbar-default navbar-static-top">
-             <div class="container-fluid">
-                 <div class="navbar-header">
-                     <a class="navbar-brand" href="../index.html">首页</a>
-                 </div>
-                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="javascript:void(0)">Link</a></li>
-                    <li><a href="javascript:void(0)">Link2</a></li>
-                 </ul>
-             </div>
-         </nav>
-     </div>
-     <div class="row demo" ng-app="MyAPP">
-         <h3>Demo1: 指令示例</h3>
-         <p>
-             <input type="text" focus ng-model="user.name" class="form-control" placeholder="请输入用户名...">
-             <span>{{user.name}}</span>
-         </p>
-         <br>
-         <hello></hello>
-     </div>
+ <div class="container" ng-app="MyAPP">
+     <siteheader></siteheader>
+     <h3>Demo1: 指令示例</h3>
+     <p>
+         <input type="text" focus ng-model="user.name" class="form-control" placeholder="请输入用户名...">
+         <span>{{user.name}}</span>
+     </p>
+     <br>
+     <hello></hello>
+     <br>
+     <myimg></myimg>
+     <br>
+     <sitefooter></sitefooter>
  </div>
 </body>
 </html>
@@ -55,6 +51,27 @@
             restrict: "E",
             replace: true,
             template: "<div class='row'>我是指令中的内容...</div>"
+        }
+    });
+    app.directive('myimg', function () {
+       return {
+           restrict:"E",
+           replace:true,
+           templateUrl:"views/img_template.html"
+       }
+    });
+    app.directive('siteheader',function(){
+        return {
+            restrict:"E",
+            replace:true,
+            templateUrl:"views/header.html"
+        }
+    });
+    app.directive('sitefooter',function(){
+        return {
+            restrict:"E",
+            replace:true,
+            templateUrl:"views/footer.html"
         }
     });
 
