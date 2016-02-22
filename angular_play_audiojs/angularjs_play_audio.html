@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+ <div class="container">
+     <div class="row">
+         <nav class="navbar navbar-default navbar-static-top">
+             <div class="container-fluid">
+                 <div class="navbar-header">
+                     <a class="navbar-brand" href="../index.html">首页</a>
+                 </div>
+                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+     <h3>音频播放示例</h3>
+     <div class="row demo" ng-app="VideoAPP">
+          <div class="row" ng-controller="PlayerController">
+              <!--<video src="{{}}" controls="controls">-->
+                  <!--您的浏览器不支持 video 标签。-->
+              <!--</video>-->
+              <button ng-click="play()" class="btn btn-primary" ng-show="!playing">Play</button>
+              <button ng-click="stop()" class="btn btn-warning" ng-show="playing">Stop</button>
+              Playing audio: <b>{{ playing }}</b>
+          </div>
+     </div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var app=angular.module("VideoAPP",[]);
+
+    app.controller("PlayerController",function($scope){
+        $scope.playing = false;
+        $scope.audio = document.createElement('audio');
+        $scope.audio.src = 'http://www.ng-newsletter.com/wp-content/uploads/2013/07/npr.mp4';
+
+        $scope.play = function() {
+            $scope.audio.play();
+            $scope.playing = true;
+        };
+        $scope.stop = function() {
+            $scope.audio.pause();
+            $scope.playing = false;
+        };
+        $scope.audio.addEventListener('ended', function() {
+            $scope.$apply(function() {
+                $scope.stop()
+            });
+        });
+    });
+
+    app.controller('RelatedController', ['$scope', function($scope) {
+
+    }]);
+</script>
