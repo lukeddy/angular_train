@@ -1,6 +1,7 @@
 <hr/>
 <h3>电影列表</h3>
 <div ng-include="'views/common/alert.html'"></div>
+<h5 class="text-center" style="color:tomato;">{{appname}}</h5>
 <div class="row">
         <div class="col-md-3 text-center" ng-repeat="movie in movieList">
             <a href="#/movieDetail/{{$index}}">
