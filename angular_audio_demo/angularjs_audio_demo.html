@@ -26,15 +26,14 @@
              </div>
          </nav>
      </div>
-     <h3>音频播放示例</h3>
+     <h3>http://www.npr.org/音频播放示例,参考：http://blog.jobbole.com/50022/</h3>
      <div class="row demo" ng-app="VideoAPP">
           <div class="row" ng-controller="PlayerController">
-              <!--<video src="{{}}" controls="controls">-->
-                  <!--您的浏览器不支持 video 标签。-->
-              <!--</video>-->
-              <button ng-click="play()" class="btn btn-primary" ng-show="!playing">Play</button>
-              <button ng-click="stop()" class="btn btn-warning" ng-show="playing">Stop</button>
-              Playing audio: <b>{{ playing }}</b>
+              <ul id="programs_list" class="">
+                  <li ng-repeat="program in programs">
+                      <span npr-link play='play(program)' ng-model="program"></span>
+                  </li>
+              </ul>
           </div>
      </div>
  </div>
@@ -46,25 +45,56 @@
         nprUrl = 'http://api.npr.org/query?id=61&fields=relatedLink,title,byline,text,audio,image,pullQuote,all&output=JSON';
 
     var app=angular.module("VideoAPP",[]);
-
+    var audio = document.createElement('audio');
     app.controller("PlayerController",function($scope,$http){
-        $scope.playing = false;
-        $scope.audio = document.createElement('audio');
-        $scope.audio.src = 'http://www.ng-newsletter.com/wp-content/uploads/2013/07/npr.mp4';
+        $http({
+            method: 'JSONP',
+            url: nprUrl + '&apiKey=' + apiKey + '&callback=JSON_CALLBACK'
+        }).success(function(data, status) {
+            console.log(data);
+            $scope.programs = data.list.story;
+        }).error(function(data, status) {
+            alert("加载失败!");
+        });
 
-        $scope.play = function() {
-            $scope.audio.play();
+        $scope.playing = false;
+
+        $scope.play = function(program) {
+            //format.mp4.$text是NPR API给我们的到这个音频mp4文件的路径 $scope.play = function(program) {
+            if ($scope.playing) audio.pause();
+            var url = program.audio[0].format.mp4.$text;
+            audio.src = url;
+            audio.play();
+
+            //储存播放器的状态为正在播放
             $scope.playing = true;
         };
         $scope.stop = function() {
-            $scope.audio.pause();
+           audio.pause();
             $scope.playing = false;
         };
-        $scope.audio.addEventListener('ended', function() {
+        audio.addEventListener('ended', function() {
             $scope.$apply(function() {
                 $scope.stop()
             });
         });
+    });
+
+
+    app.directive('nprLink', function() {
+        return {
+            restrict: 'EA',
+            require: ['^ngModel'],
+            replace: true,
+            scope: {
+                ngModel: '=',
+                play: '&'
+            },
+            templateUrl: '/views/nprListItem.html',
+            link: function(scope, ele, attr) {
+                scope.duration = scope.ngModel.audio[0].duration.$text;
+            }
+        }
     });
 
     app.controller('RelatedController', ['$scope', function($scope) {
