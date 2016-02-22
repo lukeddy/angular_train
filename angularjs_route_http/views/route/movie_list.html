@@ -1,0 +1,16 @@
+<hr/>
+<h3>电影列表</h3>
+<div class="row" ng-if="hasError">
+    <div class="alert alert-danger text-center">
+        <strong>{{msg}}</strong>
+    </div>
+</div>
+<div class="row">
+        <div class="col-md-3 text-center" ng-repeat="movie in movieList">
+            <a href="#/movieDetail/{{$index}}">
+                <p><img ng-src="{{movie.thumb}}"  alt="{{movie.title}}" style="display: block;width:100%;"></p>
+            </a>
+            <p>{{movie.title}}</p>
+            <p>{{movie.desc}}</p>
+        </div>
+</div>

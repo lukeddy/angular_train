@@ -1,0 +1,34 @@
+{
+  "movies": [
+    {
+      "title": "电影1",
+      "desc": "AngularJS重新定义了前端应用的开发方式。面对HTML和JavaScript之间的界线，它非但不畏缩不前，反而正面出击，提出了有效的解决方案。很多前端应用的开发框架，比如Backbone、EmberJS等，都要求开发者继承此框架特有的一些JavaScript对象。这种方式有其长处，但它",
+      "thumb":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2316177058.jpg"
+    },
+    {
+      "title": "Hello电影1 ,title2",
+      "desc": "AngularJS重新定义了前端应用的开发方式。面对HTML和JavaScript之间的界线，它非但不畏缩不前，反而正面出击，提出了有效的解决方案。很多前端应用的开发框架，比如Backbone、EmberJS等，都要求开发者继承此框架特有的一些JavaScript对象。这种方式有其长处，但它",
+      "thumb":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2320939539.jpg"
+    },
+    {
+      "title": "卧虎藏龙：青冥宝剑",
+      "desc": "直到现在，你或许已经听说过AngularJS了，一个改变你对web应用思考方式，由谷歌开发的令人兴奋的开源框架。关于它的文章已经写得非常之多，但我发现还是要写些给那些更喜欢快速且实际例子的开发者。当今对web编程已经发生了改变。下面通过对5个实例的解释，你可以找到Angular应用的基本构建块，包括模型，视图，控制器，服务和过滤器，你可以在自己的浏览器中直接编辑。",
+      "thumb":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2315805100.jpg"
+    },
+    {
+      "title": "西游记之孙悟空三打白骨精",
+      "desc": "直到现在，你或许已经听说过AngularJS了，一个改变你对web应用思考方式，由谷歌开发的令人兴奋的开源框架。关于它的文章已经写得非常之多，但我发现还是要写些给那些更喜欢快速且实际例子的开发者。当今对web编程已经发生了改变。下面通过对5个实例的解释，你可以找到Angular应用的基本构建块，包括模型，视图，控制器，服务和过滤器，你可以在自己的浏览器中直接编辑。",
+      "thumb":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2302137839.jpg"
+    },
+    {
+      "title": "火影忍者剧场版：博人传",
+      "desc": "直到现在，你或许已经听说过AngularJS了，一个改变你对web应用思考方式，由谷歌开发的令人兴奋的开源框架。关于它的文章已经写得非常之多，但我发现还是要写些给那些更喜欢快速且实际例子的开发者。当今对web编程已经发生了改变。下面通过对5个实例的解释，你可以找到Angular应用的基本构建块，包括模型，视图，控制器，服务和过滤器，你可以在自己的浏览器中直接编辑。",
+      "thumb":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2306653420.jpg"
+    },
+    {
+      "title": "功夫熊猫3",
+      "desc": "直到现在，你或许已经听说过AngularJS了，一个改变你对web应用思考方式，由谷歌开发的令人兴奋的开源框架。关于它的文章已经写得非常之多，但我发现还是要写些给那些更喜欢快速且实际例子的开发者。当今对web编程已经发生了改变。下面通过对5个实例的解释，你可以找到Angular应用的基本构建块，包括模型，视图，控制器，服务和过滤器，你可以在自己的浏览器中直接编辑。",
+      "thumb":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2319273504.jpg"
+    }
+  ]
+}
