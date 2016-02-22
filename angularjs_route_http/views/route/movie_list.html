@@ -1,10 +1,6 @@
 <hr/>
 <h3>电影列表</h3>
-<div class="row" ng-if="hasError">
-    <div class="alert alert-danger text-center">
-        <strong>{{msg}}</strong>
-    </div>
-</div>
+<div ng-include="'views/common/alert.html'"></div>
 <div class="row">
         <div class="col-md-3 text-center" ng-repeat="movie in movieList">
             <a href="#/movieDetail/{{$index}}">
@@ -14,3 +10,4 @@
             <p>{{movie.desc}}</p>
         </div>
 </div>
+<div ng-include="'views/common/footer.html'"></div>
