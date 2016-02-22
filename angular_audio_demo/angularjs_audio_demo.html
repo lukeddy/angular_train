@@ -8,6 +8,15 @@
         .demo{
             margin-bottom:10px;
         }
+        #statusBar{
+            display: inline-block;
+            text-align: center;
+            width: 60px;
+            height:60px;
+            line-height: 60px;
+            border-radius: 30px;
+            background:#999;
+        }
     </style>
 </head>
 <body>
@@ -29,8 +38,14 @@
      <h3>http://www.npr.org/音频播放示例,参考：http://blog.jobbole.com/50022/</h3>
      <div class="row demo" ng-app="VideoAPP">
           <div class="row" ng-controller="PlayerController">
-              <ul id="programs_list" class="">
-                  <li ng-repeat="program in programs">
+              <p class="text-center">
+                  <span id="statusBar">
+                      <i class="glyphicon glyphicon-play-circle" ng-show="!playing"></i>
+                      <i class="glyphicon glyphicon-pause" ng-show="playing"></i>
+                  </span>
+              </p>
+              <ul id="programs_list" class="list-group">
+                  <li class="list-group-item" ng-repeat="program in programs">
                       <span npr-link play='play(program)' ng-model="program"></span>
                   </li>
               </ul>
@@ -46,6 +61,7 @@
 
     var app=angular.module("VideoAPP",[]);
     var audio = document.createElement('audio');
+
     app.controller("PlayerController",function($scope,$http){
         $http({
             method: 'JSONP',
@@ -65,7 +81,6 @@
             var url = program.audio[0].format.mp4.$text;
             audio.src = url;
             audio.play();
-
             //储存播放器的状态为正在播放
             $scope.playing = true;
         };
@@ -81,16 +96,17 @@
     });
 
 
+    //指令scope请参考http://www.linuxidc.com/Linux/2015-05/116924.htm
     app.directive('nprLink', function() {
         return {
             restrict: 'EA',
-            require: ['^ngModel'],
+            require: ['^ngModel'], //要求必须有ng-model指令
             replace: true,
-            scope: {
-                ngModel: '=',
-                play: '&'
+            scope: {  //指令属性
+                ngModel: '=', //指令中的与ng-model设置的对象相等
+                play: '&'  //作为方法传入指令
             },
-            templateUrl: '/views/nprListItem.html',
+            templateUrl: 'views/nprListItem.html',
             link: function(scope, ele, attr) {
                 scope.duration = scope.ngModel.audio[0].duration.$text;
             }
