@@ -32,7 +32,11 @@
 </nav>
  <div class="container" ng-app="MyAPP">
      <h3>Demo1: 指令调用控制器中方法示例</h3>
-     <div class="row" ng-controller="MyController">
+     <div class="row" ng-controller="FirstController">
+         <mytag></mytag>
+     </div>
+     <br/>
+     <div class="row" ng-controller="SecondController">
          <mytag></mytag>
      </div>
  </div>
@@ -41,24 +45,32 @@
 <script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
 <script>
     var myModule = angular.module('MyAPP',[]);
-    myModule.controller('MyController',function($scope){
-        $scope.myname="name from controller";
-        $scope.loadData = function(){
-            console.log("加载数据...");
-            alert("你点了我!");
-            alert("controller alert:"+$scope.myname);
+    myModule.controller('FirstController',function($scope){
+        $scope.person={
+            name:"FirstController张三",
+            age:12
+        };
+        $scope.loadData = function(currPerson){
+            alert("你调用了FirstController! \r"+currPerson.name+","+currPerson.age);
         }
-    })
+    });
+    myModule.controller('SecondController',function($scope){
+        $scope.person={
+            name:"SecondController李四",
+            age:18
+        };
+        $scope.loadData = function(currPerson){
+            alert("你调用了你调用了SecondController! \r"+currPerson.name+","+currPerson.age);
+        }
+    });
     myModule.directive('mytag',function(){
         return{
             restrict: "E",
             replace: true,
             template: "<button class='btn btn-primary'>点我,我是指令中的按钮</button>",
             link:function(scope,element,attr){
-                scope.myname="name from ditective";
                 element.bind('click',function(){
-                    alert("directive alert:"+scope.myname); //原型继承机制访问父$scope中的属性值
-                    scope.loadData();
+                    scope.loadData(scope.person);
                 })
             }
         }

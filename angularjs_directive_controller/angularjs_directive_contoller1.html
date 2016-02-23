@@ -42,10 +42,9 @@
 <script>
     var myModule = angular.module('MyAPP',[]);
     myModule.controller('MyController',function($scope){
-        $scope.myname="name from controller";
         $scope.loadData = function(){
-            console.log("加载数据...");
             alert("你点了我!");
+            //原型继承不能由下往上(子向父)，猜这里输出什么？
             alert("controller alert:"+$scope.myname);
         }
     })
@@ -57,8 +56,11 @@
             link:function(scope,element,attr){
                 scope.myname="name from ditective";
                 element.bind('click',function(){
-                    alert("directive alert:"+scope.myname); //原型继承机制访问父$scope中的属性值
+                    //原型继承机制访问父$scope中的属性值，猜这里输出什么？
+                    alert("directive alert:"+scope.myname);
                     scope.loadData();
+                    //在指令中修改父$scope中的属性值
+
                 })
             }
         }
