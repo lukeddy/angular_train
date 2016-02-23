@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-top:1px solid #1b926c;
+        }
+         footer{
+             color:#fff;
+             background-color: #222;
+             border-color: #080808;
+             padding-top:60px;
+             margin-top:100px;
+         }
+    </style>
+</head>
+<body>
+<div class="row">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">首页</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="javascript:void(0)">Link</a></li>
+                <li><a href="javascript:void(0)">Link2</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+ <div class="container" ng-app="MyAPP" ng-init="name= '祖父'">
+      <h3>Demo1: 指令示例</h3>
+      <p>猜一猜？下面输出结果是?</p>
+      <div ng-init="name='父亲'">
+         第一代：{{ name }}
+         <div ng-init="name= '儿子'" ng-controller="SomeController">
+             第二代： {{ name }}
+             <div ng-init="name='孙子'">
+                 第三代： {{ name }}
+                 <!--<div ng-init="name='哈哈'">-->
+                     <!--第四代：{{name}}-->
+                 <!--</div>-->
+             </div>
+         </div>
+      </div>
+     <p>猜一猜？下面输出结果是?</p>
+     <div ng-app="app"ng-init="name= '祖父'">
+         <div ng-init="name='父亲'">
+             第一代：{{ name }}
+             <div ng-init="name= '儿子'" ng-controller="SomeController">
+                 第二代： {{ name }}
+                 <div ng-init="name='孙子'" ng-controller="SecondController">
+                     第三代： {{ name }}
+                 </div>
+             </div>
+         </div>
+     </div>
+     <p>猜一猜？下面输出结果是?</p>
+     <div ng-app="app"ng-init="name= '祖父的吻'">
+         <div>
+             第一代：{{ name }}
+             <div ng-controller="SomeController">
+                 第二代： {{ name }}
+                 <div  ng-controller="SecondController">
+                     第三代： {{ name }}
+                 </div>
+             </div>
+         </div>
+     </div>
+     <br>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var app=angular.module("MyAPP",[]);
+
+    app.controller('SomeController',function($scope){
+
+    });
+    app.controller('SecondController',function($scope){
+
+    });
+</script>
