@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+ <div class="container">
+     <div class="row">
+         <nav class="navbar navbar-default navbar-static-top">
+             <div class="container-fluid">
+                 <div class="navbar-header">
+                     <a class="navbar-brand" href="../index.html">首页</a>
+                 </div>
+                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+     <div class="row demo" ng-app="MyAPP">
+         <h3>AngularJS 依赖注入$provide示例，参考文章: <a href="http://sentsin.com/web/663.html" target="_blank">http://sentsin.com/web/663.html</a> </h3>
+         <h5>直接注入对象</h5>
+         <div ng-controller="MyController">
+             <input type="text" ng-model="msg" placeholder="请输入要说的内容...">
+             <button ng-click="hello()">Hello</button>
+         </div>
+         <br>
+         <h5>通过$injector注入对象</h5>
+         <div ng-controller="SecondController">
+             <input type="text" ng-model="msg" placeholder="请输入要说的内容...">
+             <button ng-click="hello()">Hello</button>
+         </div>
+     </div>
+ </div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var app=angular.module("MyAPP",[]);
+
+    /**
+     * Provider服务（$provide）
+     * $provide服务负责告诉Angular如何创造一个新的可注入的东西：即服务(service)。
+     * 服务会被叫做provider的东西来定义，你可以使用$provide来创建一个provider。
+     * 你需要使用$provide中的provider方法来定义一个provider，
+     * 同时你也可以通过要求改服务被注入到一个应用的config函数中来获得$provide服务,如：
+     */
+    app.config(function($provide) {
+        $provide.provider('greeting', function() {
+            this.$get = function() {
+                return function(name,msg) {
+                    if(msg.length>0){
+                        alert( name+" say: "+msg);
+                    }
+                };
+            };
+        });
+    });
+
+    //在控制器中注入对象
+    app.controller('MyController', function($scope, greeting) {
+        $scope.msg="";
+        $scope.hello = function() {
+            greeting("Francis",$scope.msg);
+        }
+    });
+
+    //第二种使用$injector注入
+    /**
+     * 注入器（$injector）
+     * 注入器负责从我们通过$provide创建的服务中创建注入的实例。
+     * 只要你编写了一个带有可注入性的参数，你都能看到注入器是如何运行的。
+     * 每一个AngularJS应用都有唯一一个$injector，当应用启动的时候它被创造出来，
+     * 你可以通过将$injector注入到任何可注入函数中来得到它（$injector知道如何注入它自己！）。
+     */
+    app.controller('SecondController', function($scope,$injector) {
+        //使用$injector指令注入对象
+        var greetingObj = $injector.get('greeting');
+        $scope.msg="";
+        $scope.hello = function() {
+            greetingObj("John",$scope.msg);
+        }
+    });
+
+</script>

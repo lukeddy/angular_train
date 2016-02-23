@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="../index.html">首页</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="row demo" ng-app="MyAPP">
+        <h3>AngularJS IOC依赖注入示例</h3>
+        <div ng-controller="FirstController">
+            <button class="btn btn-success" ng-click="hi()">
+                Say Hi
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var app=angular.module("MyAPP",[]);
+    //创建service方法
+    app.factory("MyService",function($window){
+        return {
+            sayHello:function(){
+                $window.alert("hello angular IOC");
+            }
+        };
+    });
+    app.factory("InAndOutService",function($window){
+        return {
+            doLogin:function(username,password){
+                $window.alert("login success,username:"+username+" ,password:"+password);
+            },
+            doLogout:function(username){
+                $window.alert("logout successfully,username:"+username);
+            }
+        };
+    });
+    //使用angular $injector指令注入服务
+    var injector = angular.injector('MyAPP');
+    //获取服务对象
+    var myService = injector.get('MyService');
+    var inAndOutService=injector.get("InAndOutService");
+    //下面就可以使用服务对象了
+
+    app.controller("FirstController",function($scope){
+        $scope.hi = function() {
+            //myService.sayHello();
+        };
+    });
+</script>
