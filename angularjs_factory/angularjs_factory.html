@@ -25,13 +25,10 @@
              </div>
          </nav>
      </div>
-     <h3>AngularJS service数据共享示例</h3>
+     <h3>AngularJS factory=示例</h3>
      <div class="row demo" ng-app="MyAPP">
          <div class="col-md-6" ng-controller="MainCtrl">
-             MainCtrl:<input type="text" class="form-control" ng-model="user.name">
-         </div>
-         <div class="col-md-6" ng-controller="SecondCtrl">
-             SecondCtrl:<input type="text" class="form-control" ng-model="user.name">
+             <button ng-click="saveUser()">保存</button>
          </div>
      </div>
  </div>
@@ -40,18 +37,30 @@
 <script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
 <script>
     var app=angular.module("MyAPP",[]);
-    app.controller('MainCtrl', function($scope, UserInfo) {
-        $scope.user = UserInfo;
-    });
 
-    app.controller('SecondCtrl', function($scope, UserInfo) {
-        $scope.user = UserInfo;
-    });
-
-    app.service('UserInfo', function() {
-        var user = {
-            name: "AngularJS Fans"
+    app.factory('User', function($http) {
+        var backendUrl = "http://localhost:3000";
+        var service = {    //工厂方法定义
+            user: {},
+            setName: function(newName) {
+                service.user['name'] = newName;
+            },
+            setEmail: function(newEmail) {
+                service.user['email'] = newEmail;
+            },
+            save: function() {
+                console.log(service.user);
+                return $http.post(backendUrl + '/users', {user: service.user});
+            }
         };
-        return user;
+        return service;
+    });
+
+    //注入工厂类
+    app.controller('MainCtrl', function($scope, User) {
+        User.setName("Francis");
+        User.setEmail("hello@gmail.com");
+
+        $scope.saveUser = User.save;
     });
 </script>
