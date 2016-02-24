@@ -1,0 +1,6 @@
+现在不知道怎么在点击“下一步”时
+替换index.html里的ui-view
+
+我用了取巧的方法，在login里添加ui-view
+
+求如何实现 index.html  里的ui-view替换成info.html

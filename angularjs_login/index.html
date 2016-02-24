@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <link href="p/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet"/>
+    <link href="p/css/login.css" rel="stylesheet"/>
+    <script src="p/js/jquery-1.11.1.js"></script>
+    <script src="p/js/angular/angular.1.4.6.min.js"></script>
+    <script src="p/js/angular/angular-ui-router.js"></script>
+
+</head>
+<body class="login-bg">
+    
+    <div ui-view></div>
+
+    <script>
+        var app = angular.module('app', ['ui.router']);
+        app.config(function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/login');
+            $stateProvider
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'login/login.html'
+                        
+                })
+                .state('login.info', {
+                        url: '/info',
+                        templateUrl: 'login/info.html'
+                })
+        });
+    </script>
+</body>
+</html>
