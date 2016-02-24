@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html ng-app="ngShowcaseApp">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="bootstrap-dist/css/bootstrap.css"/>
+	<link rel="stylesheet" href="treeData.css"/>
+	<script src="angular.js"></script>
+	<script src="underscore.js"></script>
+	<script src="bootstrap-dist/js/jquery.js"></script>
+	<script src="bootstrap-dist/js/bootstrap.js"></script>
+	<script src="list.js"></script>
+	<script src="index.js"></script>
+	<script src="standardTree.js"></script>
+	<script src="industryTreeData.js"></script>
+</head>
+<style type="text/css">
+	.wids{
+		width:200px;
+	}
+</style>
+<body ng-controller="treeData">
+	<table>
+		<thead>
+			<tr>
+				<td class="wids">序号</td>
+				<td class="wids">标的地址属于</td>
+				<td class="wids">行业类型属于</td>
+				<td class="wids">建筑物结构属于</td>
+				<td class="wids">增加/删除</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="list in list track by $index">
+				<td class="wids">{{$index + 1}}
+				</td>
+				<td class="wids">
+					<div  class="tree"   style="width:200px; height:200px; overflow:auto; border:1px solid #000000;">
+				  <ul>
+				    <li ng-repeat="country in vm.baseData.C_BDDZ001" ng-class="{closed:vm.standardTree.isFolded(country)}">
+				      <div>
+				        <input type="checkbox" ng-model="country.checked" ng-change="vm.standardTree.check(country, country.checked)"
+				               ng-class="{intermediate: vm.standardTree.isSemiChecked(country)}"/>
+				          <span ng-click="vm.standardTree.toggleFold(country)" >
+				            <span  class="glyphicon" ng-class="vm.standardTree.isFolded(country)?'glyphicon-plus':'glyphicon-minus plus'"></span>
+				            {{country.value}}
+				          </span>
+				      </div>
+				      <ul ng-if="vm.standardTree.isFolded(country) == false" ng-class="{hidden:vm.standardTree.isFolded(country)}">
+				        <li ng-repeat="province in country.children" ng-class="{closed:vm.standardTree.isFolded(province)}">
+				          <input type="checkbox" ng-model="province.checked" ng-change="vm.standardTree.check(province, province.checked)"
+				                 ng-class="{intermediate: vm.standardTree.isSemiChecked(province)}"/>
+				            <span ng-click="vm.standardTree.toggleFold(province)">
+				              <span class="glyphicon" ng-class="vm.standardTree.isFolded(province)?'glyphicon-plus':'glyphicon-minus'"></span>
+				              {{province.value}}
+				            </span>
+				          <ul ng-if="vm.standardTree.isFolded(province) == false" ng-class="{hidden:vm.standardTree.isFolded(province)}">
+				            <li ng-repeat="city in province.children" ng-class="{closed:vm.standardTree.isFolded(city)}">
+				              	<input type="checkbox" ng-model="city.checked" ng-change="vm.standardTree.check(city, city.checked)"
+				                 ng-class="{intermediate: vm.standardTree.isSemiChecked(city)}"/>
+				                <span ng-click="vm.standardTree.toggleFold(city)">
+					              <span class="glyphicon " ng-class="vm.standardTree.isFolded(city)?'glyphicon-plus':'glyphicon-minus'"></span>
+					              {{city.value}}
+					            </span>
+				              	<ul ng-if="vm.standardTree.isFolded(city) == false" ng-class="{hidden:vm.standardTree.isFolded(city)}">
+					            <li ng-repeat="son in city.children">
+					              <label>
+					                <input type="checkbox" ng-model="son.checked" ng-change="vm.standardTree.check(son, son.checked)"/>
+					                {{son.value}}
+					              </label>
+					            </li>
+					          </ul>
+				            </li>
+				          </ul>
+				        </li>
+				      </ul>
+				    </li>
+				  </ul>
+				</div>
+				</td>
+				<td class="wids">
+					<div class="tree"  style="width:200px; height:200px; overflow:auto; border:1px solid #000000;" >
+				  <ul>
+				    <li ng-repeat="country in vm.baseData.C_HYLX001" ng-class="{closed:vm.tree.isFolded(country)}">
+				      <div >
+				        <input type="checkbox" ng-model="country.checked" ng-change="vm.tree.check(country, country.checked)"
+				               ng-class="{intermediate: vm.tree.isSemiChecked(country)}"/>
+				          <span ng-click="vm.tree.toggleFold(country)" >
+				            <span class="glyphicon" ng-class="vm.tree.isFolded(country)?'glyphicon-plus':'glyphicon-minus plus'"></span>
+				            {{country.value}}
+				          </span>
+				      </div>
+				      <ul ng-if="vm.standardTree.isFolded(country) == false"  ng-class="{hidden: vm.tree.isFolded(country)}">
+				        <li ng-repeat="province in country.children" ng-class="{closed:vm.tree.isFolded(province)}">
+				          <input type="checkbox" ng-model="province.checked" ng-change="vm.tree.check(province, province.checked)"
+				                 ng-class="{intermediate: vm.tree.isSemiChecked(province)}"/>
+				            <span ng-click="vm.tree.toggleFold(province)">
+				              <span class="glyphicon" ng-class="vm.tree.isFolded(province)?'glyphicon-plus':'glyphicon-minus'"></span>
+				              {{province.value}}
+				            </span>
+				          <ul ng-if="vm.standardTree.isFolded(province) == false" ng-class="{hidden: vm.tree.isFolded(province)}">
+				            <li ng-repeat="city in province.children" ng-class="{closed:vm.tree.isFolded(city)}">
+				              	<input type="checkbox" ng-model="city.checked" ng-change="vm.tree.check(city, city.checked)"
+				                 ng-class="{intermediate: vm.tree.isSemiChecked(city)}"/>
+				                <span ng-click="vm.tree.toggleFold(city)">
+					              <span class="glyphicon " ng-class="vm.tree.isFolded(city)?'glyphicon-plus':'glyphicon-minus'"></span>
+					              {{city.value}}
+					            </span>
+				              	<ul ng-if="vm.standardTree.isFolded(city) == false" ng-class="{hidden: vm.tree.isFolded(city)}">
+					            <li ng-repeat="son in city.children">
+					              <label>
+					                <input type="checkbox" ng-model="son.checked" ng-change="vm.tree.check(son, son.checked)"/>
+					                {{son.value}}
+					              </label>
+					            </li>
+					          </ul>
+				            </li>
+				          </ul>
+				        </li>
+				      </ul>
+				    </li>
+				  </ul>
+				</div>
+				</td>
+				<td class="wids">
+					<select ng-model="classA"  ng-options="list.key as list.value for list in Architecture">
+						<option value="">所有</option>
+					</select>
+				</td>
+				<td class="wids">
+					<button ng-click="addRule()">+</button>
+					<button ng-click="deleteRule()">-</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</body>
+
+</html>
