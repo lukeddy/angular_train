@@ -1,0 +1,87 @@
+[
+    {
+        "key":"_Greeting_",
+        "value":"使用资源本地化服务网站本地化的例子",
+        "description":"Home page greeting text"
+    },
+    {
+        "key":"_HomeTitle_",
+        "value":"资源本地化服务",
+        "description":"Home page title text"
+    },
+    {
+        "key":"_HomeControllerTitle_",
+        "value":"例子列表",
+        "description":"Home Pane Title"
+    },
+    {
+        "key":"_HomeControllerBlob_",
+        "value":"现在是人们帮助他们国家的时候了.",
+        "description":"text example"
+    },
+    {
+        "key":"_FormControllerTitle_",
+        "value":"例如",
+        "description":"Add/Edit Person Form Title"
+    },
+    {
+        "key":"_FirstNameLabel_",
+        "value":"姓",
+        "description":"Label for first name field"
+    },
+    {
+        "key":"_FirstNameHelp_",
+        "value":"请输入姓氏",
+        "description":"Label for first name field"
+    },
+    {
+        "key":"_LastNameLabel_",
+        "value":"名字",
+        "description":"Label for last name field"
+    },
+    {
+        "key":"_LastNameHelp_",
+        "value":"请输入你的名字",
+        "description":"Label for last name field"
+    },
+    {
+        "key":"_EMailLabel_",
+        "value":"邮箱",
+        "description":"Label for email field"
+    },
+    {
+        "key":"_EMailHelp_",
+        "value":"请输入一个有效的邮箱地址",
+        "description":"Label for email field"
+    },
+    {
+        "key":"_BioLabel_",
+        "value":"简介 (告诉我们一些关于你的事情) ",
+        "description":"Label for biography field"
+    },
+    {
+        "key":"_SaveButtonLabel_",
+        "value":"保存",
+        "description":"Label for Save button"
+    },
+    {
+        "key":"_CancelButtonLabel_",
+        "value":"取消",
+        "description":"Label for Cancel button"
+    },
+    {
+        "key":"_NameHeader_",
+        "value":"姓名",
+        "description":"Person List Name Header"
+    },
+    {
+        "key":"_EmailHeader_",
+        "value":"邮箱",
+        "description":"Person List Name Header"
+    },
+    {
+        "key":"_BioHeader_",
+        "value":"简介",
+        "description":"Person List Bio Header"
+    }
+]
