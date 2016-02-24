@@ -1,0 +1,24 @@
+<div class="container" class="text-center">
+    <div class="row" style="border:1px solid red;padding:20px;">
+        <div class="col-sm-12 text-center">
+            <h2>Angular Demo</h2>
+            <hr/>
+            <a ui-sref="login">Login</a> -
+            <a ui-sref="register">Register</a> - <a ui-sref="account">Account</a> - <a ui-sref="fuhe">复合型ui-view</a> - <a
+                ui-sref="main">
+            Default</a>
+            <hr/>
+            <a ui-sref="scopewatch">监控 $scope.result</a>
+        </div>
+    </div>
+    <div class="row" ui-view style="padding:20px;border:1px solid red;border-top:none;text-align: center;">
+        Body
+    </div>
+    <div class="row" style="padding:20px;border:1px solid red;border-top:none;">
+        <div class="col-sm-12 text-center">
+            Footer
+            <br/>
+            想往哪里跳就点哪里-> <a href="javascript:void(0)" ng-click="go('login')">Login</a> - <a href="javascript:void(0)" ng-click="go('register')">Register</a> .....
+        </div>
+    </div>
+</div>

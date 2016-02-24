@@ -1,0 +1,11 @@
+<div>
+    <ul>
+        <li ng-repeat="item in results" style="text-align: left;">
+            <span style="width: 45px;display: inline-block">{{item.name}}</span> - <input type="text" ng-model="item.count"/>
+        </li>
+    </ul>
+    <hr/>
+    <div>
+        <span class="pull-right">{{count}}</span>
+    </div>
+</div>
