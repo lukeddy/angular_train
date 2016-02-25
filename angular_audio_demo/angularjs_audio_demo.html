@@ -8,7 +8,7 @@
         .demo{
             margin-bottom:10px;
         }
-        #statusBar{
+        .statusBar{
             display: inline-block;
             text-align: center;
             width: 60px;
@@ -39,14 +39,18 @@
      <div class="row demo" ng-app="VideoAPP">
           <div class="row" ng-controller="PlayerController">
               <p class="text-center">
-                  <span id="statusBar">
-                      <i class="glyphicon glyphicon-play-circle" ng-show="!playing"></i>
-                      <i class="glyphicon glyphicon-pause" ng-show="playing"></i>
+                  <span class="statusBar" ng-show="!playing">
+                      <i class="glyphicon glyphicon-play-circle"></i><br>
+                      等待播放
+                  </span>
+                  <span class="statusBar"  ng-show="playing">
+                      <i class="glyphicon glyphicon-pause"></i><br>
+                      播放中...
                   </span>
               </p>
               <ul id="programs_list" class="list-group">
                   <li class="list-group-item" ng-repeat="program in programs">
-                      <span npr-link play='play(program)' ng-model="program"></span>
+                      <span npr-link play='play(program)' stop='stop()' ng-model="program"></span>
                   </li>
               </ul>
           </div>
@@ -104,7 +108,8 @@
             replace: true,
             scope: {  //指令属性
                 ngModel: '=', //指令中的与ng-model设置的对象相等
-                play: '&'  //作为方法传入指令
+                play: '&',  //作为方法传入指令,
+                stop:'&'
             },
             templateUrl: 'views/nprListItem.html',
             link: function(scope, ele, attr) {
