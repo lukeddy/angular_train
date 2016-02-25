@@ -1,0 +1,12 @@
+<div class="row text-center">
+    <div class="col-md-1">
+        {{ngModel.num}}
+    </div>
+    <div class="col-md-5">
+        <button class="btn btn-default mybtn" id="mybtn{{ngModel.num}}">点我</button>
+        <button class="btn btn-primary" ng-click="callback()">点我回调</button>
+    </div>
+    <div class="col-md-6">
+        <b>{{ngModel.title}}</b>
+    </div>
+</div>
