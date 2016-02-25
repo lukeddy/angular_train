@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+ <div class="container">
+     <div class="row">
+         <nav class="navbar navbar-default navbar-static-top">
+             <div class="container-fluid">
+                 <div class="navbar-header">
+                     <a class="navbar-brand" href="../index.html">首页</a>
+                 </div>
+                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+     <h3>AngularJS service示例:github api</h3>
+     <div class="row demo" ng-app="MyAPP">
+         <curuser></curuser>
+         <div ng-controller="ServiceController">
+             <label for="username">输入GitHub用户名</label>
+             <input type="text" id="username" class="form-control" ng-model="username" placeholder="在这里输入github用户名，如：zq666" />
+             <pre ng-show="username">{{ events }}</pre>
+         </div>
+     </div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    var app=angular.module("MyAPP",[]);
+    app.factory('githubService', ['$http', function($http) {
+                var githubUsername; //作为全局变量存储，方便在其他controller,指令中使用
+                var doRequest = function(path) {
+                    return $http({
+                        method: 'JSONP',
+                        url: 'https://api.github.com/users/' + githubUsername + '/' + path + '?callback=JSON_CALLBACK'
+                    });
+                }
+                return {
+                    events: function() { return doRequest('events'); },
+                    setUsername: function(newUsername) { githubUsername = newUsername; },
+                    getUsername:function(){return githubUsername}
+                };
+            }]);
+
+    app.controller('ServiceController', ['$scope', '$timeout', 'githubService',function($scope, $timeout, githubService) {
+            var timeout;
+            $scope.$watch('username', function(newVal) {
+                if (newVal) {
+                    if (timeout) $timeout.cancel(timeout);
+                    timeout = $timeout(function() {
+                        githubService.setUsername(newVal);
+                        githubService.events(newVal).success(function(data, status) {
+                             $scope.events = data.data;
+                        });
+                    }, 2000);//延迟两秒
+                }
+            });
+        }]);
+
+    app.directive("curuser",function($window, githubService){
+       return {
+           restrict:"E",
+           replace:true,
+           template:"<button>显示当前Github用户</button>",
+           link:function(scope,ele,attr){
+               ele.on("click",function(){
+                   $window.alert(githubService.getUsername());
+               });
+           }
+       }
+    });
+</script>
