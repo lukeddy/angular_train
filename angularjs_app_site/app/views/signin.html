@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="page-header text-center"><strong>站点登录页</strong></div>
+    <div class="col-lg-12">
+    <div class="panel">
+            <div class="panel-body">
+                <div class="alert alert-danger alert-dismissible text-center" role="alert" ng-if="error">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>{{error}}</strong>
+                </div>
+                <form class="form-horizontal" role="form" ng-submit="signin()">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" placeholder="在这里输入邮箱地址" ng-model="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" placeholder="在这里输入密码" ng-model="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">登录</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

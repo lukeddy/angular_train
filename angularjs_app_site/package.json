@@ -1,0 +1,11 @@
+{
+    "name": "angular app",
+    "version": "0.0.1",
+    "dependencies": {
+        "express": "4.x",
+        "morgan": "latest"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    }
+}

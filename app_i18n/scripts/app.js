@@ -13,8 +13,8 @@
 angular.module('localizeApp', ['localization','ui.bootstrap','ngResource','ngRoute']).
     config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
-        when('/', {templateUrl:'partials/home.html', controller:HomeController}).
-        when('/edit/:index', {templateUrl:'partials/form.html', controller:EditPersonController}).
-        when('/new', {templateUrl:'partials/form.html', controller:NewPersonController}).
+        when('/', {templateUrl:'views/home.html', controller:HomeController}).
+        when('/edit/:index', {templateUrl:'views/form.html', controller:EditPersonController}).
+        when('/new', {templateUrl:'views/form.html', controller:NewPersonController}).
         otherwise({redirectTo:'/'});
 }]);
