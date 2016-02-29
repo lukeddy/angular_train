@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <script src="js/vendor/custom.modernizr.js"></script>
+    <script src="js/vendor/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/foundation.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+  </head>
+  <body ng-controller="FrameController">
+
+    <div class="row">
+      <h1>NPR player</h1>
+    </div>
+
+    <div class="container row">
+      <div class="large-8 small-8 columns">
+      <h2>Player</h2>
+        <div ng-controller="PlayerController">
+
+          <div class="container">
+            <div player-view class="large-12 columns small-12" ng-model="player"></div>
+          </div>
+        
+          <ul id="programs_list" class="">
+            <li ng-repeat="program in programs">
+              <span npr-link player="player" ng-model="program"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="large-4 small-4 columns" ng-controller="RelatedController">
+        <h2>Related content</h2>
+        <ul id="related">
+          <li ng-repeat="s in related"><a href="{{ s.link }}">{{ s.caption }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      document.write('<script src=js/vendor/'
+        + ('__proto__' in {} ? 'zepto' : 'jquery')
+        + '.js><\/script>');
+    </script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script src="js/beginner.js"></script>
+    <script type="text/javascript">
+      $(document).foundation();
+    </script>
+  </body>
+</html>
