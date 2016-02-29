@@ -1,4 +1,6 @@
 # angular_train
+
+[![Join the chat at https://gitter.im/tzq668766/angular_train](https://badges.gitter.im/tzq668766/angular_train.svg)](https://gitter.im/tzq668766/angular_train?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 AngularJS练习项目
 # 如何运行？
 1、安装nodejs和browsersync,具体怎么安装请参考：http://www.browsersync.cn/#install
