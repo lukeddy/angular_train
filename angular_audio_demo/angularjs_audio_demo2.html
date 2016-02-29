@@ -51,11 +51,19 @@
               <p>
                  播放状态:{{player.playing}},播放周期：{{player.currentDuration()}},播放进度：{{player.currentTime()}}
               </p>
-              <ul id="programs_list" class="list-group">
-                  <li class="list-group-item" ng-repeat="program in programs">
-                      <span npr-link ng-model="program" player="player"></span>
-                  </li>
-              </ul>
+              <div class="col-md-8">
+                  <ul id="programs_list" class="list-group">
+                      <li class="list-group-item" ng-repeat="program in programs">
+                          <span npr-link ng-model="program" player="player"></span>
+                      </li>
+                  </ul>
+              </div>
+              <div class="col-md-4" ng-controller="RelatedController">
+                  <h5>正在播放音乐相关信息：</h5>
+                  <ul id="related">
+                      <li ng-repeat="s in related"><a href="{{ s.link }}">{{ s.caption }}</a></li>
+                  </ul>
+              </div>
           </div>
      </div>
  </div>
@@ -67,36 +75,35 @@
         nprUrl = 'http://api.npr.org/query?id=61&fields=relatedLink,title,byline,text,audio,image,pullQuote,all&output=JSON';
 
     var app=angular.module("VideoAPP",[]);
-    //var audio = document.createElement('audio');
 
+    //播放组件封装类
     app.factory('audio', ['$document', function($document) {
         var audio = $document[0].createElement('audio');
         return audio;
     }]);
 
+    //播放器封装类
     app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
         var player = {
             playing: false,
             current: null,
             ready: false,
             play: function(program) {
-                 // If we are playing, stop the current playback
+                 // 如果正在播放，则停止当前播放
                 if (player.playing) player.stop();
                 var url = program.audio[0].format.mp4.$text;
-                // from the npr API
+                //重新渲染播放数据
                 player.current = program;
-                // Store the current program
                 audio.src = url;
                 audio.play();
-                // Start playback of the url
+                //更改播放状态
                 player.playing = true
             },
-
             stop: function() {
                 if (player.playing) {
                     audio.pause();
-                    // stop playback
-                    // Clear the state of the player
+                    //暂停播放
+                    //清除播放状态
                     player.ready = player.playing = false;
                     player.current = null;
                 }
@@ -108,6 +115,7 @@
                 return parseInt(audio.duration);
             }
         };
+        //播放组件添加事件，便于更新状态和UI
         audio.addEventListener('ended', function() {
             $rootScope.$apply(player.stop());
         });
@@ -125,20 +133,18 @@
         return player;
     }]);
 
-    app.controller('PlayerController', ['$scope','$http', 'player',function($scope,$http, player) {
-            $http({
+    //服务类作为发送http请求的封装类
+    app.factory('nprService', ['$http', function($http) {
+        var doRequest = function(successCallback,errorCallback) {
+            return  $http({
                 method: 'JSONP',
                 url: nprUrl + '&apiKey=' + apiKey + '&callback=JSON_CALLBACK'
-            }).success(function(data, status) {
-                console.log(data);
-                $scope.programs = data.list.story;
-            }).error(function(data, status) {
-                alert("加载失败!");
-            });
-
-            $scope.player = player;
-
-        }]);
+            }).success(successCallback).error(errorCallback);
+        }
+        return {
+            getPrograms: function(success,error) { return doRequest(success,error); }
+        };
+    }]);
 
     //指令scope请参考http://www.linuxidc.com/Linux/2015-05/116924.htm
     app.directive('nprLink', function() {
@@ -148,7 +154,7 @@
             replace: true,
             scope: {//指令属性
                 ngModel: '=', //指令中的与ng-model设置的对象相等
-                player: '='
+                player: '='   //把player属性值作为对象传递到指令的scope中
             },
             templateUrl: 'views/nprListItem.html',
             link: function(scope, ele, attr) {
@@ -157,7 +163,32 @@
         }
     });
 
-    app.controller('RelatedController', ['$scope', function($scope) {
+    //控制器类
+    app.controller('PlayerController', ['$scope','$http', 'player','nprService',function($scope,$http, player,nprService) {
+        $scope.player = player;
+        nprService.getPrograms(function(data, status) {
+            console.log(data);
+            $scope.programs = data.list.story;
+        },function(data, status) {
+            alert("加载失败!");
+        });
 
     }]);
+
+    //用于显示当前播放音乐信息
+    app.controller('RelatedController', ['$scope', 'player',function($scope, player) {
+            $scope.player = player;
+            $scope.$watch('player.current', function(program) {
+                if (program) {
+                    $scope.related = [];
+                    angular.forEach(program.relatedLink, function(link) {
+                        $scope.related.push({
+                            link: link.link[0].$text,
+                            caption: link.caption.$text
+                        });
+                    });
+                }
+            });
+        }]);
+
 </script>
