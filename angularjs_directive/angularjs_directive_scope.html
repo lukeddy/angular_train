@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-top:1px solid #1b926c;
+        }
+         footer{
+             color:#fff;
+             background-color: #222;
+             border-color: #080808;
+             padding-top:60px;
+             margin-top:100px;
+         }
+    </style>
+</head>
+<body>
+<div class="row">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">首页</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="javascript:void(0)">Link</a></li>
+                <li><a href="javascript:void(0)">Link2</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+ <div class="container" ng-app="MyAPP">
+     <siteheader></siteheader>
+     <h3>angularjs指令示例，scope中@,=,&用法</h3>
+     <h6>第一种：@方式传值</h6>
+     <div class="col-md-12" ng-controller="FirstCtrl">
+         <mydirective1 for-name="{{name}}"></mydirective1>
+     </div>
+     <br>
+     <h6>第二种：=传递对象引用</h6>
+     <div class="col-md-12" ng-controller="SecondCtrl">
+         <ul class="list-group">
+             <li class="list-group-item">
+                 <caseitem case="caseList[0]"></caseitem>
+             </li>
+             <li class="list-group-item">
+                 <caseitem case="caseList[1]"></caseitem>
+             </li>
+         </ul>
+         <ul class="list-group">
+             <li class="list-group-item" ng-repeat="mycase in caseList">
+                 {{$index}}<caseitem case="mycase"></caseitem>
+             </li>
+         </ul>
+     </div>
+     <p>=双向数据绑定示例</p>
+     <p>
+         <input type="text" ng-model="myname">
+         <input type="text" ng-model="myname">
+     </p>
+     <p ng-controller="NameCtrl">
+         <input type="text" ng-model="anothername">
+         <namedirective model="anothername"></namedirective>
+     </p>
+
+     <h6>第三种：&传递方法，包括有参数和无参数方法的传递</h6>
+     <div class="col-md-12" ng-controller="ThirdCtrl">
+         <mydirective3 get-title="title" get-content="contents"></mydirective3>
+     </div>
+     <h6>带参数方法的传递</h6>
+     <div class="col-md-12" ng-controller="FourthCtrl">
+         <mydirective4 show="showName(name)"></mydirective4>
+     </div>
+
+
+     <sitefooter></sitefooter>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+    //示例参考自：http://my.oschina.net/u/2342955/blog/408889
+    var app=angular.module("MyAPP",[]);
+    //第一种：@方式传值
+    /**
+     * 它将本地作用域和DOM中的属性值绑定起来（且这个属性的值必须是父级作用域中的），
+     * 什么意思呢？说的简单一点就是假设你在模板中有个双花括号表达式，
+     * 然后我们把表达式里的内容和html中指令里特定名字的属性绑定起来
+     * */
+    app.controller('FirstCtrl',["$scope",function($scope){
+        $scope.name="我是控制器中的name属性值";
+    }]);
+    app.directive('mydirective1',function(){
+        return {
+            restrict:"ECMA",
+            template: '<div>指令中：{{ name }}</div>',
+            scope:'@forName'
+        }
+    });
+    //第二种：=对象引用传递
+    /**
+    *=与@的不同点在于，@是针对字符串（准确来说是表达式expression）而用，但=是针对某个对象的引用
+    * */
+    app.controller('SecondCtrl',function($scope){
+        $scope.caseList=[{name:"我是Case1"},{name:"我是case2"}];
+    });
+    app.directive('caseitem',function(){
+        return {
+            restrict:"ECMA",
+            template:'<div>指令中：{{ case.name }}</div>',
+            scope:{
+                case:'='
+            }
+        }
+    });
+    app.directive('namedirective',function(){
+        return {
+            restrict:'ECMA',
+            template:'<input type="text" ng-model="model" placeholder="我是指令中的输入框"/>',
+            scope:{
+                model:'='
+            }
+        }
+    });
+    app.controller("NameCtrl",function($scope){
+    });
+    //第二种：=对象引用传递,双向数据绑定示例
+    /**
+     * =对父级作用域进行绑定，并将其中的属性包装成一个函数，
+     * 注意，是属性，意即，任何类型的属性都会被包装成一个函数，
+     * 比如一个单纯的字符串，或是一个对象数组，或是一个函数方法，
+     * 如果是字符串、对象数组和无参的函数，那么可想而知，它们都会被包装成一个无参的函数，
+     * 若是有参的函数方法则反之，并且我们需要为其传入一个对象。
+     */
+    app.directive("mydirective3",function(){
+        return {
+            restrict:'ECMA',
+            template:'<div>{{title}}</div><div><ul class="list-group"><li class="list-group-item" ng-repeat="con in contents">{{con.text}}</li></ul></div>',
+            scope:{
+                getTitle:'&',
+                getContent:'&'
+            },
+            controller:function($scope){
+                $scope.title=$scope.getTitle(); //无参方法调用
+                $scope.contents=$scope.getContent();//无参方法调用
+            }
+        }
+    });
+
+    app.controller('ThirdCtrl',function($scope){
+        $scope.title="我是标题";
+        $scope.contents=[{text:"内容xxxxx"},{text:"内容ppppp"}];
+    });
+    //第三种：带参数方法传递
+    app.directive('mydirective4',function(){
+        return {
+            restrict:'ECMA',
+            template:'<div><input ng-model="model"/><div><button ng-click="show({name:model})">show</button> </div>',
+            scope:{
+                show:'&'
+            }
+        }
+    });
+    app.controller('FourthCtrl',function($scope){
+        $scope.showName=function(name){
+            alert(name);
+        }
+    });
+
+
+
+
+
+
+    //公共部分，页头与页脚，封装到了指令中
+    app.directive('siteheader',function(){
+        return {
+            restrict:"E",
+            replace:true,
+            templateUrl:"views/header.html"
+        }
+    });
+    app.directive('sitefooter',function(){
+        return {
+            restrict:"E",
+            replace:true,
+            templateUrl:"views/footer.html"
+        }
+    });
+
+</script>
