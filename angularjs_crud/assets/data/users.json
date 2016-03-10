@@ -1,0 +1,22 @@
+{
+  "users":[
+    {
+      "username":"zhangsan",
+      "first_name":"张",
+      "last_name":"三",
+      "address":"成都天府软件园地址1"
+    },
+    {
+      "username":"lisi",
+      "first_name":"李",
+      "last_name":"四",
+      "address":"成都天府软件园地址2"
+    },
+    {
+      "username": "wangwu",
+      "first_name": "王",
+      "last_name": "五",
+      "address": "成都天府软件园地址3"
+    }
+  ]
+}
