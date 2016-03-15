@@ -7,33 +7,41 @@ angular.module('CrudApp', [ 'ngRoute']).config(['$routeProvider', function($rout
 
 
 function ListCtrl($scope, $http) {
-  $http.get('assets/data/users.json').success(function(data) {
-    console.log(data);
-    $scope.users = data.users;
-  });
+    //$http.get('assets/data/users.json').success(function(data) {
+    //  console.log(data);
+    //  $scope.users = data.users;
+    //});
+    var users=[
+      {
+        "username":"zhangsan",
+        "first_name":"张",
+        "last_name":"三",
+        "address":"成都天府软件园地址1"
+      },
+      {
+        "username":"lisi",
+        "first_name":"李",
+        "last_name":"四",
+        "address":"成都天府软件园地址2"
+      },
+      {
+        "username": "wangwu",
+        "first_name": "王",
+        "last_name": "五",
+        "address": "成都天府软件园地址3"
+      }
+    ];
+
+    $scope.users=[];
+    $scope.users=users;
 }
 
 function AddCtrl($scope, $http, $location) {
-  $scope.master = {};
-  $scope.activePath = null;
-
   $scope.add_new = function(user, AddNewForm) {
-    //$http.post('api/add_user', user).success(function(){
-    //  $scope.reset();
-    //  $scope.activePath = $location.path('/');
-    //});
-    console.log(user);
-    $scope.users.push(user);
-    console.log($scope.users);
-    //$scope.activePath = $location.path('/');
-    $scope.reset();
-
-    $scope.reset = function() {
-      $scope.user = angular.copy($scope.master);
-    };
-
-    $scope.reset();
-
+      console.log(user);
+      $scope.users.push(user);
+      console.log($scope.users);
+      $location.path('/');
   };
 }
 
