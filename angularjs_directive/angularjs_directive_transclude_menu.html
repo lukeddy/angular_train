@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+            border-top:1px solid #1b926c;
+        }
+         footer{
+             color:#fff;
+             background-color: #222;
+             border-color: #080808;
+             padding-top:60px;
+             margin-top:100px;
+         }
+    </style>
+</head>
+<body>
+<div class="row">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">首页</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="javascript:void(0)">Link</a></li>
+                <li><a href="javascript:void(0)">Link2</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+ <div class="container" ng-app="MyAPP" ng-init="name= '祖父'">
+      <h3>Demo1: 指令属性：transclude示例-显示与隐藏</h3>
+     <br>
+     <div ng-controller="MyCtrl">
+         <mymenu menu-id="menu1">
+             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
+         </mymenu>
+         <mymenu menu-id="menu2">
+             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
+         </mymenu>
+         <mymenu menu-id="menu3">
+             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
+         </mymenu>
+     </div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+
+    /**
+     * angular中的transclude
+     Transclude - 在Angular的指令中，大家会看到有一个这样的一个配置属性，这个单词在英文字典里面也查询不到真实的意思，所以就用英文来标示它吧。如果你深入的使用angular的话，你就花很大一部分时间来创建自定义指令，那么就不可避免的要深入理解transclude。简单的讲，transclude主要完成以下工作，取出自定义指令中的内容(就是写在指令里面的子元素)，以正确的作用域解析它,然后再放回指令模板中标记的位置(通常是ng-transclude标记的地方)，虽然使用内建的ngTransclude对于基本的transclude操作已经足够简单，但是在文档中对这个transclude的解释还是有存在很多疑惑，比如说：
+     在compile函数中接收到了一个叫transclude的参数是什么东西呢？有什么用呢？
+     在控制器中也有个叫$transclude的可以通过依赖注入的服务，这又是什么呢？
+     隔离作用域跟transclude有什么关系？
+     属性的transclude操作
+     */
+    var app=angular.module("MyAPP",[]);
+
+    app.controller("MyCtrl",function($scope){
+        $scope.text = '点击展开';
+        $scope.menus=["菜单1","菜单2","菜单3"];
+    });
+
+    app.directive('mymenu',function(){
+        return {
+            restrict: "EA",
+            replace: true,//通常，这种效果只有设置restrict="E"的情况下，才会表现出实际效果。
+            templateUrl:"./views/mymenu_tpl2.html",
+            transclude:true,
+            link:function(scope,ele,attr){
+                scope.toggle=function(){
+                    scope.ifShow = !scope.ifShow;
+                    scope.text = scope.ifShow ? '点击收起' :'点击展开';
+                    console.log(attr.menuId);
+                }
+            }
+        }
+    });
+
+</script>
