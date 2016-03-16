@@ -36,15 +36,11 @@
       <h3>Demo1: 指令属性：transclude示例-显示与隐藏</h3>
      <br>
      <div ng-controller="MyCtrl">
-         <mymenu menu-id="menu1">
-             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
-         </mymenu>
-         <mymenu menu-id="menu2">
-             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
-         </mymenu>
-         <mymenu menu-id="menu3">
-             <li class="list-group-item" ng-repeat="m in menus">{{m}}</li>
-         </mymenu>
+         <div ng-repeat="menu in menus">
+             <mymenu>
+                 <li class="list-group-item" ng-repeat="submenu in submenus">{{menu}}-{{submenu}}</li>
+             </mymenu>
+         </div>
      </div>
  </div>
 </body>
@@ -63,8 +59,8 @@
     var app=angular.module("MyAPP",[]);
 
     app.controller("MyCtrl",function($scope){
-        $scope.text = '点击展开';
-        $scope.menus=["菜单1","菜单2","菜单3"];
+        $scope.menus=["父菜单1","父菜单2","父菜单3"];
+        $scope.submenus=["菜单1","菜单2","菜单3"];
     });
 
     app.directive('mymenu',function(){
@@ -73,11 +69,9 @@
             replace: true,//通常，这种效果只有设置restrict="E"的情况下，才会表现出实际效果。
             templateUrl:"./views/mymenu_tpl2.html",
             transclude:true,
-            link:function(scope,ele,attr){
+            link:function(scope,ele,attrs){
                 scope.toggle=function(){
-                    scope.ifShow = !scope.ifShow;
-                    scope.text = scope.ifShow ? '点击收起' :'点击展开';
-                    console.log(attr.menuId);
+                    scope.showStatus = !scope.showStatus;
                 }
             }
         }
