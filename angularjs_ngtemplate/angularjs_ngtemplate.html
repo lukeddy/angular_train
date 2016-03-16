@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="MyAPP">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+    <style>
+        .demo{
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+ <div class="container">
+     <div class="row">
+         <nav class="navbar navbar-default navbar-static-top">
+             <div class="container-fluid">
+                 <div class="navbar-header">
+                     <a class="navbar-brand" href="../index.html">首页</a>
+                 </div>
+                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)">Link</a></li>
+                    <li><a href="javascript:void(0)">Link2</a></li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+     <div class="row demo">
+         <h2>Demo5: 模版加载，多种加载方式示例</h2>
+
+         <h3>使用内存模版</h3>
+         <div ng-controller="MyCtrl">
+             <div ng-include="'mycontent.html'" class="row"></div>
+         </div>
+         <br>
+         <br>
+         <br>
+         <h3>ng-template模版</h3>
+         <div ng-include="'mycontent2.html'"></div>
+         <br>
+         <br>
+         <h3>引用外部文件模版</h3>
+         <div ng-include="'./views/mycontent3.html'"></div>
+         <br>
+         <br>
+         <div></div>
+         <br>
+         <h3>指令中使用内存模版</h3>
+         <mydirective></mydirective>
+         <br>
+         <br>
+         <h3>指令中使用ng-template模版</h3>
+         <mydirective2></mydirective2>
+         <br>
+         <br>
+         <h3>指令中引用外部文件模版</h3>
+         <mydirective3></mydirective3>
+     </div>
+ </div>
+ </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script type="text/ng-template" id="mycontent2.html">
+    <div class="row">
+        <h4>angular模版加载-"ng-template"加载方式</h4>
+        <p>我是调用$templateCache服务获取模板文件的方式</p>
+        <a href="http://www.baidu.com">想知道更多请搜索angular指令：ng-template</a>
+    </div>
+</script>
+
+<script>
+    var app=angular.module("MyAPP",[]);
+    //缓存方式加载模版
+    app.controller('MyCtrl', ['$scope','$templateCache', function($scope,$templateCache){
+        var tmp = '<div class="row"><h4>angular模版加载-内存加载方式</h4>'
+                + '<p>我是调用$templateCache服务获取模板文件的方式</p>'
+                + '<a href="http://www.baidu.com">想知道更多请搜索angular指令：$templateCache</a></div>';
+        $templateCache.put('mycontent.html',tmp);
+    }]);
+
+    //自定义指令使用内存模版
+    app.directive('mydirective', ['$log', function($log){
+        return {
+            restrict: 'EA',
+            templateUrl: 'mycontent.html',
+            replace: true,
+            link: function($scope, element, attrs, controller) {
+
+            }
+        }
+    }]);
+    //自定义指令使用ng-template模版
+    app.directive('mydirective2', ['$log', function($log){
+        return {
+            restrict: 'EA',
+            templateUrl: 'mycontent2.html',
+            replace: true,
+            link: function($scope, element, attrs, controller) {
+
+            }
+        }
+    }]);
+    //自定义指令引用外部模版
+    app.directive('mydirective3', ['$log', function($log){
+        return {
+            restrict: 'EA',
+            templateUrl: './views/mycontent3.html',
+            replace: true,
+            link: function($scope, element, attrs, controller) {
+
+            }
+        }
+    }]);
+</script>
+
