@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS&middot;Hello AngularJS</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+</head>
+<body>
+
+ <div class="container">
+     <div ng-include="'../common/header.html'"></div>
+     <div ng-app="routeApp">
+         <div class="row demo">
+             <h3>Demo1: AngularJS路由和模板示例2</h3>
+             <div ng-controller="MainController">
+                 菜单:
+                 <a href="#/Book/Moby">Moby</a> |
+                 <a href="#/Book/Moby/ch/1">Moby: Ch1</a> |
+                 <a href="#/Book/Gatsby">Gatsby</a> |
+                 <a href="#/Book/Gatsby/ch/4?key=value">Gatsby: Ch4</a> |
+                 <a href="#/Book/Scarlet">Scarlet Letter</a><br/>
+
+                 <div ng-view></div>
+
+                 <hr />
+                 <p><b>当前路径，模版，参数等：</b></p>
+                 <pre>$location.path() = {{$location.path()}}</pre>
+                 <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+                 <pre>$route.current.params = {{$route.current.params}}</pre>
+                 <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
+                 <pre>$routeParams = {{$routeParams}}</pre>
+             </div>
+         </div>
+     </div>
+ </div>
+</body>
+</html>
+<script src="../static/js/angular-1.3.15/angular.js" type="text/javascript"></script>
+<script src="../static/js/angular-1.3.15/angular-route.js"></script>
+<script src="scripts/app.js"></script>
