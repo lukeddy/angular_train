@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html ng-app="customControl">
+<head>
+  <title>ngModelController</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+  <style>
+    *{font-family: 'MICROSOFT YAHEI'}
+  </style>
+</head>
+<body>
+<div class="container" ng-controller="ctrl">
+  <div ng-include="'../common/header.html'"></div>
+  <div class="page-header">
+    <h1>ngModelController- <small>创建一个实现了双向数据绑定的可编辑文本区域</small></h1>
+  </div>
+  <form role="form" name="myForm">
+    <div class="form-group">
+      <div contenteditable name="myWidget" ng-model="userContent" ng-model-options="{debounce:1000}" class="form-control" required default-text="请输入内容"></div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-default btn-primary" ng-click="setNone()">设置为'抱歉,我没有想输入的内容'</button>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="myForm.myWidget.$error.required">
+      <strong>Oh!</strong> 必填!
+    </div>
+  </form>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">用户输入的内容为:</h3>
+    </div>
+    <div class="panel-body">
+      {{userContent}}
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-controller="Rollback">
+  <form role="form" name="myForm2" ng-model-options="{ updateOn: 'blur' }">
+    <div class="form-group">
+      <label>执行了 $rollbackViewValue() 方法</label>
+      <input name="myInput1" ng-model="myValue1" class="form-control" ng-keydown="resetWithRollback($event)">
+      <blockquote>
+        <footer>myValue1: "{{ myValue1 }}"</footer>
+      </blockquote>
+      <p></p>
+    </div>
+    <div class="form-group">
+      <label>没有执行了 $rollbackViewValue() 方法</label>
+      <input name="myInput2" ng-model="myValue2" class="form-control" ng-keydown="resetWithoutRollback($event)">
+      <blockquote>
+        <footer>myValue2: "{{ myValue2 }}"</footer>
+      </blockquote>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <a href="http://plnkr.co/edit/CbOS1nFosPDfQXvsGTyR?p=preview" class="btn btn-default" role="button">在线预览</a>
+</div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script>
+  var app = angular.module('customControl',[]);
+  app.controller('ctrl',function($scope){
+    $scope.setNone = function(){
+      $scope.userContent = '抱歉,我没有想输入的内容'
+    }
+  });
+  app.directive('contenteditable',function(){
+    return {
+      restrict:'A',
+      require:'?^ngModel',
+      link:function(scope,element,attrs,ngModel){
+        if(!ngModel){
+          return
+        }
+        //一开始scope.userContent是空
+        console.log(ngModel.$isEmpty(scope.userContent));
+        ngModel.$setViewValue(attrs.defaultText);
+        //调用了$setViewValue以后就不为空了,但是如果设置了ngModelOptions,则没用.
+        console.log(ngModel.$isEmpty(scope.userContent));
+        ngModel.$render = function(){
+          element.html(ngModel.$viewValue || attrs.defaultText);
+        };
+        element.bind('focus',function(){
+          if(element.html()==attrs.defaultText){
+            element.html('')
+          }
+        });
+        element.bind('focus blur keyup change',function(){
+          console.log(scope.userContent);    //userContent这个实际的值应该是和$modelValue一致的.
+          ngModel.$setViewValue(element.html());
+          console.log('$viewValue为:'+ngModel.$viewValue);
+          console.log('$modelValue为:'+ngModel.$modelValue);
+        });
+        ngModel.$parsers.push(function(value){
+          return value.toUpperCase()
+        })
+      }
+    }
+  });
+
+
+  /*app.controller('Rollback',function($scope){
+   $scope.resetWithRollback = function(e){
+   if(e.keyCode == 27) {
+   $scope.myValue1 = '';
+   //使用了$rollbackViewValue,总是可以同步视图,清空myValue1值
+   $scope.myForm2.myInput1.$rollbackViewValue();
+   }
+   };
+   $scope.resetWithoutRollback = function(e){
+   if(e.keyCode == 27){
+   //并不是每次都可以成功的同步的,有时可以,有时不可以.
+   $scope.myValue2 = ''
+   }
+   }
+   });*/
+
+  /*使用下面这段代码能更明显的看到两者的区别:*/
+  app.controller('Rollback',function($scope){
+    $scope.resetWithRollback = function(e){
+      if(e.keyCode == 27) {
+        $scope.myForm2.myInput1.$rollbackViewValue();
+      }
+    };
+    $scope.resetWithoutRollback = function(e){
+      if(e.keyCode == 27){
+        angular.noop()
+      }
+    }
+  });
+</script>
+

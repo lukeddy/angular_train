@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea/
 /angularjs-douban-movie/node_modules
+/angularjs_ngModelController/asyncValidators/node_modules
