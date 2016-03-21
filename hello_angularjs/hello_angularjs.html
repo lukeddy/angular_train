@@ -19,19 +19,7 @@
 <body>
 
  <div class="container">
-     <div class="row">
-         <nav class="navbar navbar-default navbar-static-top">
-             <div class="container-fluid">
-                 <div class="navbar-header">
-                     <a class="navbar-brand" href="../index.html">首页</a>
-                 </div>
-                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="javascript:void(0)">Link</a></li>
-                    <li><a href="javascript:void(0)">Link2</a></li>
-                 </ul>
-             </div>
-         </nav>
-     </div>
+     <div ng-include src="'../common/header.html'"></div>
      <div class="row demo">
          <h3>Demo1: 字符串显示</h3>
          <h5>输出：Hello {{'AngularJS'}}</h5>
