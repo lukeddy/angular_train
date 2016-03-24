@@ -10,4 +10,4 @@ node,browsersync
 
 
 效果图：
-![](https://github.com/tzq668766/screenshots/blob/master/angularjs_train_screenshots/tax_calculator.png =600x500)
+![](./images/tax_calculator.png)
