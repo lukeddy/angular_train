@@ -35,3 +35,9 @@ IE compatibility（IE兼容性）
 
 
 最后-实战-实战-还是实战
+
+具体都有啥，看看列表截图：  
+![](https://github.com/tzq668766/screenshots/blob/master/angularjs_train_screenshots/angularjs_learn1.jpg)
+
+![](https://github.com/tzq668766/screenshots/blob/master/angularjs_train_screenshots/angularjs_learn2.jpg)
+
