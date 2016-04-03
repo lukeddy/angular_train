@@ -38,6 +38,13 @@
                      {{person.name}}-{{person.age}}
                  </li>
              </ul>
+             <br>
+             <hr>
+             <ul>
+                 <li class="item" ng-repeat="person in persons" ng-class="person.age<=25?'green':'red'">
+                     {{person.name}}-{{person.age}}
+                 </li>
+             </ul>
          </div>
      </div>
  </div>
