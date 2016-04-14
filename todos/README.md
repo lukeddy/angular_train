@@ -23,3 +23,5 @@ https://github.com/isaacs/node-supervisor
 https://github.com/remy/nodemon  
 https://github.com/nodejitsu/forever  
 
+截图：  
+![](https://github.com/tzq668766/screenshots/blob/master/angularjs_train_screenshots/node_angular_todo.png)
