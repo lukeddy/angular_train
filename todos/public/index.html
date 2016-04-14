@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>todos</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css">
+	<style type="text/css">
+		.finished{
+			text-decoration: line-through;
+			color:#aaa;
+		}
+		.banner img{
+			display: inline-block;
+			max-width: 300px;
+		}
+		#main{
+			width:320px;
+			margin:auto;
+		}
+	</style>
+
+</head>
+<body>
+
+    <div class="container">
+    	<div class="row text-center">
+			<p class="banner"><img src="http://www.fpwap.com/UploadFiles/sjrj/2013/4/2013410105310.jpg" alt=""></p>
+    	   <h5 class="page-header">
+			   TODO项目
+    	   </h5>
+    	</div>
+    	<div id="main" ng-app="todoModule">
+    	   <div ng-controller="MainCtrl">
+    	      <!--TODO列表-->
+    	      <div id="todl-list">               
+	               <div class="checkbox" ng-repeat="todo in todos">
+	                    <label ng-class="todo.done?'finished':''">
+	                        <input type="checkbox" ng-checked="todo.done" ng-click="todoDone(todo._id)"> {{ todo.text }}
+	                    </label>
+	                </div>
+    	       </div> 
+
+    			<!--TODO添加表单-->
+		        <div id="todo-form" class="row">
+					<form>
+						<div class="form-group">
+							<input type="text" class="form-control text-center" placeholder="在这里添加待办事项" ng-model="formData.text">
+						</div>
+						<button type="submit" class="btn btn-primary" ng-click="createTodo()">添加TODO</button>
+						<button type="button" class="btn btn-default" ng-click="removeFinishedTodos()">删除完成项目</button>
+					</form>
+		        </div>
+    	   </div>
+			<br>
+			<br>
+			<br>
+			<p>
+				TODO项目,后台使用node,express,mongoose提供restful[GET,POST,PUT,DELETE]风格的API,前台使用angular,bootstrap
+			</p>
+    	</div>
+
+    </div>
+</body>
+</html>
+<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="//cdn.bootcss.com/angular.js/1.3.8/angular.js" type="text/javascript"></script>
+<script src="app.js" type="text/javascript"></script>
+
+
+
