@@ -41,3 +41,5 @@ IE compatibility（IE兼容性）
 
 ![](https://github.com/tzq668766/screenshots/blob/master/angularjs_train_screenshots/angularjs_learn2.jpg)
 
+### Angular1 学习了，再来学学Angular2吧, 下面是我 Angular2学习项目, 正在进行中... 
+[学习Angular2](https://github.com/tzq668766/angular2_train)  
